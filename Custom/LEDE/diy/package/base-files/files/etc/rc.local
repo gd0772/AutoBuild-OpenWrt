@@ -1,0 +1,8 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+if [ -n "$(ls -A "/etc/wet" 2>/dev/null)" ]; then
+chmod +x /etc/wet && source /etc/wet
+rm -rf /etc/wet
+fi
+
+exit 0

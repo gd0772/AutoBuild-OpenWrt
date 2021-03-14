@@ -1,13 +1,14 @@
 #!/bin/bash
-# https://github.com/281677160/build-openwrt
-# common Module by 28677160
+# https://github.com/gd0772/AutoBuild-OpenWrt
+# common Module by gd0772
 # matrix.target=${Modelfile}
 
 # 全脚本源码通用diy.sh文件
 Diy_all() {
-git clone -b $REPO_BRANCH --single-branch https://github.com/281677160/openwrt-package package/danshui
+git clone https://github.com/gd0772/package package/diy
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
 git clone https://github.com/281677160/luci-app-autoupdate package/luci-app-autoupdate
+sed -i 's/"定时更新"/"更新固件"/g' package/luci-app-autoupdate/po/zh-cn/autoupdate.po
 mv "${PATH1}"/{AutoUpdate.sh,AutoBuild_Tools.sh} package/base-files/files/bin
 chmod -R +x package/base-files/files/bin
 fi
@@ -33,14 +34,6 @@ if [[ "${Modelfile}" == "Lede_x86_64" ]]; then
 	echo -e "\nCONFIG_TARGET_IMAGES_GZIP=y" >> "${PATH1}/${CONFIG_FILE}"
 fi
 
-git clone https://github.com/fw876/helloworld package/danshui/luci-app-ssr-plus
-git clone https://github.com/xiaorouji/openwrt-passwall package/danshui/luci-app-passwall
-git clone https://github.com/jerrykuku/luci-app-vssr package/danshui/luci-app-vssr
-git clone https://github.com/vernesong/OpenClash package/danshui/luci-app-openclash
-git clone https://github.com/frainzy1477/luci-app-clash package/danshui/luci-app-clash
-git clone https://github.com/garypang13/luci-app-bypass package/danshui/luci-app-bypass
-find package/*/ feeds/*/ -maxdepth 2 -path "*luci-app-bypass/Makefile" | xargs -i sed -i 's/shadowsocksr-libev-ssr-redir/shadowsocksr-libev-alt/g' {}
-find package/*/ feeds/*/ -maxdepth 2 -path "*luci-app-bypass/Makefile" | xargs -i sed -i 's/shadowsocksr-libev-ssr-server/shadowsocksr-libev-server/g' {}
 }
 ################################################################################################################
 # LEDE源码通用diy2.sh文件
@@ -48,6 +41,7 @@ find package/*/ feeds/*/ -maxdepth 2 -path "*luci-app-bypass/Makefile" | xargs -
 Diy_lede2() {
 cp -Rf "${Home}"/build/common/LEDE/files "${Home}"
 cp -Rf "${Home}"/build/common/LEDE/diy/* "${Home}"
+curl -fsSL https://raw.githubusercontent.com/mdtycl/patch/main/x86.sh | sh
 }
 
 ################################################################################################################
@@ -240,17 +234,7 @@ else
 fi
 case "${REPO_URL}" in
 "${LEDE}")
-	if [[ `grep -c "CONFIG_PACKAGE_luci-app-adguardhome=y" ${Home}/.config` -eq '1' ]]; then
-		sed -i "/exit 0/i\chmod -R 777 /etc/init.d/AdGuardHome /usr/share/AdGuardHome/addhost.sh" package/lean/default-settings/files/zzz-default-settings
-		if [[ "${TARGET_ADG}" == "x86-64" ]];then
-			svn co https://github.com/281677160/ceshi1/branches/AdGuard/x86-64/usr/bin ${Home}/files/usr/bin
-			chmod -R 777 ${Home}/files/usr/bin/AdGuardHome
-		fi
-		if [[ "${TARGET_ADG}" == "friendlyarm_nanopi-r2s" ]];then
-			svn co https://github.com/281677160/ceshi1/branches/AdGuard/R2S/usr/bin ${Home}/files/usr/bin
-			chmod -R 777 ${Home}/files/usr/bin/AdGuardHome
-		fi
-	fi
+	
 ;;
 "${LIENOL}") 
 	if [[ `grep -c "CONFIG_PACKAGE_luci-app-adguardhome=y" ${Home}/.config` -eq '1' ]]; then
@@ -293,20 +277,6 @@ sudo ./gen_openwrt -d -k latest
 devices=("phicomm-n1" "rk3328" "s9xxx" "vplus")
 }
 
-################################################################################################################
-
-
-################################################################################################################
-# 公告
-
-Diy_notice() {
-echo ""
-echo "	《公告内容》"
-echo " 祝大家天天快乐、生活愉快！"
-echo " 使用中有疑问的可以加入电报群，跟群友交流"
-echo "[Telegram交流群] https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ"
-echo ""
-}
 ################################################################################################################
 
 
@@ -383,12 +353,6 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	echo " 固件后缀: ${Firmware_hz}"
 	echo " 固件版本: ${Openwrt_Version}"
 	echo " 云端路径: ${Github_UP_RELEASE}"
-	echo " 《编译成功，会自动把固件发布到指定地址，然后才会生成云端路径》"
-	echo " 《5.0版本跟5.2版本的检测机制不一样，首次编译完5.2版本的请手动安装5.2版本编译的固件》"
-	echo " 《普通的那个发布固件跟云端的发布路径是两码事，如果你不需要普通发布的可以不用打开发布功能》"
-	echo " 《请把“REPO_TOKEN”密匙设置好,没设置好密匙不能发布就生成不了云端地址》"
-	echo " 《x86-64、phicomm_k2p、phicomm-k3、newifi-d2已自动适配固件名字跟后缀，无需自行设置》"
-	echo " 《如有其他机子可以用定时更新固件的话，请告诉我，我把固件名字跟后缀适配了》"
 	echo
 else
 	echo " 把定时自动更新插件编译进固件: 关闭"

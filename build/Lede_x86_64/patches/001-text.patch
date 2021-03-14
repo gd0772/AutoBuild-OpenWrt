@@ -1,0 +1,14 @@
+diff --git a/package/base-files/files/bin/config_generate b/package/base-files/files/bin/config_generate
+index 0939306..446ade3 100644
+--- a/package/base-files/files/bin/config_generate
++++ b/package/base-files/files/bin/config_generate
+@@ -110,6 +110,9 @@ generate_network() {
+ 				set network.$1.proto='static'
+ 				set network.$1.ipaddr='$ipad'
+ 				set network.$1.netmask='$netm'
++				set network.$1.gateway='192.168.2.1'
++				set network.$1.dns='114.114.114.114 223.5.5.5'
++				set network.$1.broadcast='192.168.2.255'
+ 			EOF
+ 			[ -e /proc/sys/net/ipv6 ] && uci set network.$1.ip6assign='60'
+ 		;;

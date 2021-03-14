@@ -26,9 +26,6 @@ popd
 # LEDE源码通用diy1.sh文件
 ################################################################################################################
 Diy_lede() {
-rm -rf package/lean/v2ray-plugin
-rm -rf package/lean/{luci-app-netdata,luci-theme-argon,k3screenctrl}
-sed -i 's/iptables -t nat/# iptables -t nat/g' package/lean/default-settings/files/zzz-default-settings
 if [[ "${Modelfile}" == "Lede_x86_64" ]]; then
 	sed -i '/IMAGES_GZIP/d' "${PATH1}/${CONFIG_FILE}" > /dev/null 2>&1
 	echo -e "\nCONFIG_TARGET_IMAGES_GZIP=y" >> "${PATH1}/${CONFIG_FILE}"

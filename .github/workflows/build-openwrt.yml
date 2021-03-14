@@ -94,7 +94,7 @@ jobs:
     
     - name: 调整文件
       run: |
-        svn co https://github.com/gd0772/AutoBuild-OpenWrt/trunk/Custom "${GITHUB_WORKSPACE}/build/common"
+        svn co https://github.com/gd0772/Public/trunk/Custom "${GITHUB_WORKSPACE}/build/common"
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
         cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
         chmod -R +x "${PATH1}"

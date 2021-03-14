@@ -1,4 +1,3 @@
-
 diff --git a/package/base-files/files/bin/config_generate b/package/base-files/files/bin/config_generate
 index 0939306..446ade3 100644
 --- a/package/base-files/files/bin/config_generate

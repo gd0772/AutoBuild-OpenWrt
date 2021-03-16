@@ -67,7 +67,7 @@ jobs:
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "true" ]]; then
           curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 通知：
-                  固件编译开始，您正在编译【${{matrix.target}}】固件中，预计需要4-5个小时(#${{github.run_number}}),请耐心等待...... 😋" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+                  固件编译开始，您正在编译【${{matrix.target}}】固件中，预计需要4-5个小时 (#${{github.run_number}}) ,请耐心等待...... 😋" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
         fi
     
     - name: 安装环境
@@ -303,6 +303,6 @@ jobs:
     - name: TG通知
       run: |
           if [[ "${SERVERCHAN_SCKEY}" == "true" ]]; then
-            curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=✨通知✨：
-                    您编译的 [${{ env.NAME2 }}-${{ env.NAME1 }}] 固件(#${{github.run_number}})已顺利编译完成了！💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+            curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 通知：
+                    固件编译完成！您编译的 [${{ env.NAME2 }}-${{ env.NAME1 }}] 固件 (#${{github.run_number}}) 已顺利编译完成了！💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
           fi

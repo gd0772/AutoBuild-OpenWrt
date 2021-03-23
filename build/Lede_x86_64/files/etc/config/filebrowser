@@ -3,5 +3,5 @@ config global
 	option port '8088'
 	option root_path '/'
 	option project_directory '/mnt/FileBrowser'
-	option enable '1'
+	option enable '0'
 

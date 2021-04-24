@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# echo '更新系统组件'
+sudo apt-get update && sudo apt-get  -y upgrade
+
+# echo '安装编译组件'
+sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync'
+
+# echo '拉取大雕LEDE源码'
+git clone https://github.com/coolsnowwolf/lede && cd lede && ./scripts/feeds update -a && ./scripts/feeds install -a
+
 # echo '删除重复多余主题'
 rm -rf ./feeds/freifunk/themes
 rm -rf ./package/lean/luci-theme-netgear
@@ -223,3 +232,15 @@ sed -i 's/services/vpn/g' package/lean/luci-app-v2ray-server/luasrc/model/cbi/v2
 sed -i 's/services/vpn/g' package/lean/luci-app-v2ray-server/luasrc/view/v2ray_server/log.htm
 sed -i 's/services/vpn/g' package/lean/luci-app-v2ray-server/luasrc/view/v2ray_server/users_list_status.htm
 sed -i 's/services/vpn/g' package/lean/luci-app-v2ray-server/luasrc/view/v2ray_server/v2ray.htm
+
+# echo '导入N1配置'
+curl -fsSL https://raw.githubusercontent.com/gd0772/AutoBuild-OpenWrt/main/build/Lede_phicomm_n1/.config > .config
+
+# echo '手动增减插件'
+make menuconfig
+
+# echo '下载dl库'
+make -j3 download
+
+# echo '开始编译固件'
+make -j$(($(nproc) + 1)) V=s

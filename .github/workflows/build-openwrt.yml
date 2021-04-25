@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_x86_64,Lede_phicomm_n1]
+        target: [Lede_x86_64]
         
         # [Project_x86_64,Lede_x86_64,Lienol_x86_64,Lede_phicomm_n1]
 

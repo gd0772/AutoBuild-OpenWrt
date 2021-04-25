@@ -12,9 +12,11 @@ LIZZZ="package/default-settings/files/zzz-default-settings"
 Diy_all() {
 DIY_GET_COMMON_SH
 git clone https://github.com/gd0772/package package/gd772
+rm -rf package/gd772/luci-app-autoupdate
 mv "${PATH1}"/AutoBuild_Tools.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoBuild_Tools.sh
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
+git clone https://github.com/281677160/luci-app-autoupdate package/luci-app-autoupdate
 mv "${PATH1}"/AutoUpdate.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoUpdate.sh
 fi

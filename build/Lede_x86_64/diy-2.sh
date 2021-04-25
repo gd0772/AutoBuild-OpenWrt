@@ -243,8 +243,8 @@ curl -fsSL https://raw.githubusercontent.com/gd0772/patch/main/firewall.user > .
 sed -i "s/R21.4.18/R21.4.18 $(TZ=UTC-8 date "+%Y.%m.%d") Build by gd772/g" $ZZZ
 
 # echo '更换内核'
-sed -i 's/KERNEL_PATCHVER:=5.4/KERNEL_PATCHVER:=4.19/g' ./target/linux/x86/Makefile
-sed -i 's/KERNEL_TESTING_PATCHVER:=5.4/KERNEL_TESTING_PATCHVER:=4.19/g' ./target/linux/x86/Makefile
+#sed -i 's/KERNEL_PATCHVER:=5.4/KERNEL_PATCHVER:=4.19/g' ./target/linux/x86/Makefile
+#sed -i 's/KERNEL_TESTING_PATCHVER:=5.4/KERNEL_TESTING_PATCHVER:=4.19/g' ./target/linux/x86/Makefile
 
 # echo '更新feeds'
 ./scripts/feeds update -i

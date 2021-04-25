@@ -167,11 +167,11 @@ sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
 cat -n Plug-in > Plugin
 sed -i 's/	luci/、luci/g' Plugin
 awk '{print "  " $0}' Plugin > Plug-in
-#if [ `grep -c "CONFIG_TARGET_x86_64=y" ${Home}/.config` -eq '1' ]; then
+if [ `grep -c "CONFIG_TARGET_x86_64=y" ${Home}/.config` -eq '1' ]; then
 	#TARGET_ADG="x86-64"
 #else
 	#TARGET_ADG="$(egrep -o "CONFIG_TARGET.*DEVICE.*=y" .config | sed -r 's/.*DEVICE_(.*)=y/\1/')"
-#fi
+fi
 
 rm -rf {LICENSE,README,README.md,CONTRIBUTED.md,README_EN.md}
 rm -rf ./*/{LICENSE,README,README.md}

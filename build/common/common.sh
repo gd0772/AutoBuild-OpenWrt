@@ -16,7 +16,7 @@ chmod +x package/gd772
 mv "${PATH1}"/AutoBuild_Tools.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoBuild_Tools.sh
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
-git clone https://github.com/281677160/luci-app-autoupdate package/luci-app-autoupdate
+git clone https://github.com/gd0772/luci-app-autoupdate package/luci-app-autoupdate
 mv "${PATH1}"/AutoUpdate.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoUpdate.sh
 fi
@@ -37,7 +37,6 @@ rm -rf ./feeds/packages/net/smartdns
 rm -rf ./feeds/packages/admin/netdata
 rm -rf ./package/lean/luci-app-netdata
 rm -rf ./package/lean/luci-app-cpufreq
-rm -rf ./package/gd772/luci-app-autoupdate
 rm -rf ./package/lean/luci-app-usb-printer
 rm -rf ./package/lean/luci-app-jd-dailybonus
 rm -rf ./feeds/luci/applications/luci-app-rp-pppoe-server

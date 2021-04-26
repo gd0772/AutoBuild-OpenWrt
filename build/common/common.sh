@@ -1,6 +1,6 @@
 #!/bin/bash
-# https://github.com/281677160/build-openwrt
-# common Module by 28677160
+# https://github.com/gd0772/AutoBuild-OpenWrt
+# common Module by gd0772
 # matrix.target=${Modelfile}
 
 DIY_GET_COMMON_SH() {
@@ -391,11 +391,11 @@ sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
 cat -n Plug-in > Plugin
 sed -i 's/	luci/、luci/g' Plugin
 awk '{print "  " $0}' Plugin > Plug-in
-if [ `grep -c "CONFIG_TARGET_x86_64=y" ${Home}/.config` -eq '1' ]; then
-	TARGET_ADG="x86-64"
-else
-	TARGET_ADG="$(egrep -o "CONFIG_TARGET.*DEVICE.*=y" .config | sed -r 's/.*DEVICE_(.*)=y/\1/')"
-fi
+#if [ `grep -c "CONFIG_TARGET_x86_64=y" ${Home}/.config` -eq '1' ]; then
+	#TARGET_ADG="x86-64"
+#else
+	#TARGET_ADG="$(egrep -o "CONFIG_TARGET.*DEVICE.*=y" .config | sed -r 's/.*DEVICE_(.*)=y/\1/')"
+#fi
 
 case "${REPO_URL}" in
 "${LEDE}")

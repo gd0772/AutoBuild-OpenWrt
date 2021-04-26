@@ -1,6 +1,6 @@
 #!/bin/bash
-# https://github.com/gd0772/AutoBuild-OpenWrt
-# common Module by gd0772
+# https://github.com/281677160/build-openwrt
+# common Module by 28677160
 # matrix.target=${Modelfile}
 
 DIY_GET_COMMON_SH() {
@@ -12,11 +12,10 @@ LIZZZ="package/default-settings/files/zzz-default-settings"
 Diy_all() {
 DIY_GET_COMMON_SH
 git clone https://github.com/gd0772/package package/gd772
-chmod +x package/gd772
 mv "${PATH1}"/AutoBuild_Tools.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoBuild_Tools.sh
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
-git clone https://github.com/gd0772/luci-app-autoupdate package/luci-app-autoupdate
+git clone https://github.com/281677160/luci-app-autoupdate package/luci-app-autoupdate
 mv "${PATH1}"/AutoUpdate.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoUpdate.sh
 fi
@@ -37,6 +36,7 @@ rm -rf ./feeds/packages/net/smartdns
 rm -rf ./feeds/packages/admin/netdata
 rm -rf ./package/lean/luci-app-netdata
 rm -rf ./package/lean/luci-app-cpufreq
+rm -rf ./package/gd772/luci-app-autoupdate
 rm -rf ./package/lean/luci-app-usb-printer
 rm -rf ./package/lean/luci-app-jd-dailybonus
 rm -rf ./feeds/luci/applications/luci-app-rp-pppoe-server
@@ -391,11 +391,11 @@ sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
 cat -n Plug-in > Plugin
 sed -i 's/	luci/、luci/g' Plugin
 awk '{print "  " $0}' Plugin > Plug-in
-#if [ `grep -c "CONFIG_TARGET_x86_64=y" ${Home}/.config` -eq '1' ]; then
-	#TARGET_ADG="x86-64"
-#else
-	#TARGET_ADG="$(egrep -o "CONFIG_TARGET.*DEVICE.*=y" .config | sed -r 's/.*DEVICE_(.*)=y/\1/')"
-#fi
+if [ `grep -c "CONFIG_TARGET_x86_64=y" ${Home}/.config` -eq '1' ]; then
+	TARGET_ADG="x86-64"
+else
+	TARGET_ADG="$(egrep -o "CONFIG_TARGET.*DEVICE.*=y" .config | sed -r 's/.*DEVICE_(.*)=y/\1/')"
+fi
 
 case "${REPO_URL}" in
 "${LEDE}")

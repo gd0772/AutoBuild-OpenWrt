@@ -7,7 +7,7 @@
 
 - 检查并更新固件(不保留配置): `bash /bin/AutoUpdate.sh -n`
 
-# 感谢一直默默为开源作贡献的大神
+# 感谢
 - [大雕 源码仓库](https://github.com/coolsnowwolf/lede.git)
 - [Lienol 源码仓库](https://github.com/Lienol/openwrt.git)
 - [天灵 源码仓库](https://github.com/project-openwrt/openwrt.git)

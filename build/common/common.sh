@@ -12,6 +12,7 @@ LIZZZ="package/default-settings/files/zzz-default-settings"
 Diy_all() {
 DIY_GET_COMMON_SH
 git clone https://github.com/gd0772/package package/gd772
+chmod +x package/gd772
 mv "${PATH1}"/AutoBuild_Tools.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoBuild_Tools.sh
 if [[ ${REGULAR_UPDATE} == "true" ]]; then

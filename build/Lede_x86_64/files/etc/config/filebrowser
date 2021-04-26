@@ -1,0 +1,6 @@
+  
+config global
+	option port '8088'
+	option root_path '/'
+	option project_directory '/etc/filebrowser'
+	option enable '0'

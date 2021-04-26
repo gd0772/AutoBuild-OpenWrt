@@ -241,7 +241,7 @@ jobs:
         name: OpenWrt-${{ env.NAME1 }}-${{ env.NAME2 }}-firmware-${{ env.date }}
         path: ${{ env.FIRMWARE }}
 
-    - name: 固件上传到「奶牛快传」和「WeTransfer」
+    - name: 转存网盘
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh

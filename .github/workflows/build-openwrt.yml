@@ -168,6 +168,7 @@ jobs:
         cd openwrt
         source "${PATH1}/upgrade.sh"
         source "${PATH1}/common.sh" && Diy_xinxi
+        chmod -R 755 .
     
     - name: 下载dl库
       id: package

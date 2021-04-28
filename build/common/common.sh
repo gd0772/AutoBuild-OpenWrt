@@ -27,7 +27,6 @@ fi
 Diy_all2() {
 DIY_GET_COMMON_SH
 curl -fsSL https://raw.githubusercontent.com/gd0772/patch/main/x86.sh | sh
-chmod +x package/diy/*
 }
 
 

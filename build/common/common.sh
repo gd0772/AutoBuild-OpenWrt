@@ -15,7 +15,7 @@ git clone https://github.com/gd0772/package package/diy
 mv "${PATH1}"/AutoBuild_Tools.sh package/base-files/files/bin
 chmod +x package/base-files/files/bin/AutoBuild_Tools.sh
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
-git clone https://github.com/281677160/luci-app-autoupdate package/luci-app-autoupdate
+git clone https://github.com/gd0772/luci-app-autoupdate package/luci-app-autoupdate
 sed -i "s/"定时更新"/"更新固件"/g" package/luci-app-autoupdate/po/zh-cn/autoupdate.po
 sed -i "s/定时更新是一个/是一个/g" package/luci-app-autoupdate/po/zh-cn/autoupdate.po
 mv "${PATH1}"/AutoUpdate.sh package/base-files/files/bin

@@ -23,7 +23,7 @@ on:
         default: 'true'           #删除旧的发布（true=开启）（false=关闭）
 
   schedule:
-    - cron: 50 7 * * 0
+   # - cron: 50 7 * * 0
 
 env:
   OLDER_WORKFLOW: true

@@ -1,4 +1,7 @@
 # AutoBuild-OpenWrt
+固件在线更新
+1. 在Luci里更新 直接在 OP后台 系统--更新固件
+2. 命令行 或者 SSH 链接 OP 执行一下命令 更新
 - 保存配置更新 bash /bin/AutoUpdate.sh
 - 不保留配置更新 bash /bin/AutoUpdate.sh -n
 - 固件页面

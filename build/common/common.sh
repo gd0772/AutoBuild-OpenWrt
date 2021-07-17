@@ -99,7 +99,7 @@ if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	git clone https://github.com/gd0772/luci-app-autoupdate feeds/luci/applications/luci-app-autoupdate
 	cp -Rf "${PATH1}"/{AutoUpdate.sh,replace.sh} package/base-files/files/bin
 	sed -i 's/"定时更新"/"更新固件"/g' feeds/luci/applications/luci-app-autoupdate/po/zh-cn/autoupdate.po
-	sed -i 's/"定时更新 LUCI"/"固件更新 LUCI"/g' feeds/luci/applications/luci-app-autoupdate/po/zh-cn/autoupdate.po
+	sed -i 's/定时更新 LUCI/固件更新 LUCI/g' feeds/luci/applications/luci-app-autoupdate/po/zh-cn/autoupdate.po
 fi
 if [[ "${REPO_BRANCH}" == "master" ]]; then
 	cp -Rf "${Home}"/build/common/LEDE/files "${Home}"

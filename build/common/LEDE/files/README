@@ -1,3 +1,0 @@
-﻿替换openwrt设置文件的文件夹，设置好openwrt后
-记住这个不是源码文件，是源码编译好固件后的openwrt，安装好后，设置好后，openwrt里面etc
-用WinSCP(文件协议F选择SCP)连接openwrt，找到etc文件夹，里面就是openwrt的所有设置文件 文件替换大法！

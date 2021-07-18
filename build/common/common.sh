@@ -358,13 +358,13 @@ if [[ ${SSHYC} == "true" ]]; then
 	TIME y "SSH远程连接临时开关: 开启"
 fi
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
-	TIME y "把定时自动更新插件编译进固件: 开启"
+	TIME y "在线自动更新固件: 开启"
 else
-	TIME r "把定时自动更新插件编译进固件: 关闭"
+	TIME r "在线自动更新固件: 关闭"
 fi
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	echo
-	TIME l "定时自动更新信息"
+	TIME l "在线自动更新固件信息"
 	TIME z "插件版本: ${AutoUpdate_Version}"
 	if [[ ${TARGET_PROFILE} == "x86-64" ]]; then
 		TIME b "传统固件: ${Legacy_Firmware}"

@@ -236,10 +236,10 @@ fi
 ################################################################################################################
 Diy_chuli() {
 
-if [[ "${TARGET_PROFILE}" == "x86-64" ]]; then
-	cp -Rf "${Home}"/build/common/Custom/DRM-I915 target/linux/x86/DRM-I915
-	for X in $(ls -1 target/linux/x86 | grep "config-"); do echo -e "\n$(cat target/linux/x86/DRM-I915)" >> target/linux/x86/${X}; done
-fi
+#if [[ "${TARGET_PROFILE}" == "x86-64" ]]; then
+	#cp -Rf "${Home}"/build/common/Custom/DRM-I915 target/linux/x86/DRM-I915
+	#for X in $(ls -1 target/linux/x86 | grep "config-"); do echo -e "\n$(cat target/linux/x86/DRM-I915)" >> target/linux/x86/${X}; done
+#fi
 grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in
 grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in
 if [[ `grep -c "CONFIG_PACKAGE_luci-i18n-qbittorrent-zh-cn=y" ${Home}/.config` -eq '0' ]]; then

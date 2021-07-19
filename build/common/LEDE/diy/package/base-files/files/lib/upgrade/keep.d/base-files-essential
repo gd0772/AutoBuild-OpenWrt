@@ -1,4 +1,5 @@
 # Essential files that will be always kept
+/etc/firewall.user
 /etc/hosts
 /etc/inittab
 /etc/group

@@ -27,15 +27,9 @@ Compte=$(date +%Y年%m月%d号%H时%M分)
 ################################################################################################################
 Diy_lede() {
 find . -name 'luci-app-netdata' -o -name 'netdata' -o -name 'luci-theme-argon' | xargs -i rm -rf {}
-#find . -name 'luci-app-ipsec-vpnd' -o -name 'k3screenctrl' -o -name 'luci-app-fileassistant' | xargs -i rm -rf {}
-#find . -name 'luci-theme-netgear' | xargs -i rm -rf {}
-
-#sed -i '/to-ports 53/d' $ZZZ
 
 git clone https://github.com/gd0772/package package/gd772
 curl -fsSL https://raw.githubusercontent.com/gd0772/patch/main/x86.sh | sh
-sed -i "/exit 0/i\chmod +x /etc/webweb.sh && source /etc/webweb.sh" $ZZZ
-
 
 if [[ "${Modelfile}" == "Lede_source" ]]; then
 	sed -i '/IMAGES_GZIP/d' "${PATH1}/${CONFIG_FILE}" > /dev/null 2>&1
@@ -75,8 +69,6 @@ rm -rf feeds/packages/libs/libcap
 git clone https://github.com/fw876/helloworld package/luci-app-ssr-plus
 git clone https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 
-sed -i 's/DEFAULT_PACKAGES +=/DEFAULT_PACKAGES += luci-app-passwall/g' target/linux/x86/Makefile
-sed -i "/exit 0/i\chmod +x /etc/webweb.sh && source /etc/webweb.sh" $ZZZ
 }
 
 
@@ -236,10 +228,6 @@ fi
 ################################################################################################################
 Diy_chuli() {
 
-#if [[ "${TARGET_PROFILE}" == "x86-64" ]]; then
-	#cp -Rf "${Home}"/build/common/Custom/DRM-I915 target/linux/x86/DRM-I915
-	#for X in $(ls -1 target/linux/x86 | grep "config-"); do echo -e "\n$(cat target/linux/x86/DRM-I915)" >> target/linux/x86/${X}; done
-#fi
 grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in
 grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in
 if [[ `grep -c "CONFIG_PACKAGE_luci-i18n-qbittorrent-zh-cn=y" ${Home}/.config` -eq '0' ]]; then
@@ -268,10 +256,6 @@ fi
 if [[ "${PATCHVER}" != "unknown" ]]; then
 	PATCHVER=$(egrep -o "${PATCHVER}.[0-9]+" ${Home}/include/kernel-version.mk)
 fi
-#if [[ "${REPO_BRANCH}" == "master" ]]; then
-	#sed -i 's/distversion)%>/distversion)%><!--/g' package/lean/autocore/files/*/index.htm
-	#sed -i 's/luciversion)%>)/luciversion)%>)-->/g' package/lean/autocore/files/*/index.htm
-#fi
 [[ -e $GITHUB_WORKSPACE/amlogic_openwrt ]] && source $GITHUB_WORKSPACE/amlogic_openwrt
 [[ "${amlogic_kernel}" == "5.12.12_5.4.127" ]] && {
 	curl -fsSL https://raw.githubusercontent.com/ophub/amlogic-s9xxx-openwrt/main/.github/workflows/build-openwrt-lede.yml > open.yml
@@ -311,25 +295,25 @@ TIME b "仓库地址: ${Github}"
 TIME b "启动编号: #${Run_number}（${CangKu}仓库第${Run_number}次启动[${Run_workflow}]工作流程）"
 TIME b "编译时间: ${Compte}"
 [[ "${Modelfile}" == "openwrt_amlogic" ]] && {
-	TIME g "友情提示：您当前使用【${Modelfile}】文件夹编译【${TARGET_model}】固件"
+	TIME g "提示：您当前使用【${Modelfile}】文件夹编译【${TARGET_model}】固件"
 } || {
-	TIME g "友情提示：您当前使用【${Modelfile}】文件夹编译【${TARGET_PROFILE}】固件"
+	TIME g "提示：您当前使用【${Modelfile}】文件夹编译【${TARGET_PROFILE}】固件"
 }
 echo
 if [[ ${UPLOAD_FIRMWARE} == "true" ]]; then
-	TIME y "上传固件在github actions: 开启"
+	TIME y "上传固件: 开启"
 else
-	TIME r "上传固件在github actions: 关闭"
+	TIME r "上传固件: 关闭"
 fi
 if [[ ${UPLOAD_CONFIG} == "true" ]]; then
-	TIME y "上传[.config]配置文件: 开启"
+	TIME y "上传配置文件: 开启"
 else
-	TIME r "上传[.config]配置文件: 关闭"
+	TIME r "上传配置文件: 关闭"
 fi
 if [[ ${UPLOAD_BIN_DIR} == "true" ]]; then
-	TIME y "上传BIN文件夹(固件+IPK): 开启"
+	TIME y "上传BIN文件: 开启"
 else
-	TIME r "上传BIN文件夹(固件+IPK): 关闭"
+	TIME r "上传BIN文件: 关闭"
 fi
 if [[ ${UPLOAD_COWTRANSFER} == "true" ]]; then
 	TIME y "上传固件至【奶牛快传】和【WETRANSFER】: 开启"
@@ -358,13 +342,13 @@ if [[ ${SSHYC} == "true" ]]; then
 	TIME y "SSH远程连接临时开关: 开启"
 fi
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
-	TIME y "在线自动更新固件: 开启"
+	TIME y "在线更新 固件: 开启"
 else
-	TIME r "在线自动更新固件: 关闭"
+	TIME r "在线更新 固件: 关闭"
 fi
 if [[ ${REGULAR_UPDATE} == "true" ]]; then
 	echo
-	TIME l "在线自动更新固件信息"
+	TIME l "在线更新 固件信息"
 	TIME z "插件版本: ${AutoUpdate_Version}"
 	if [[ ${TARGET_PROFILE} == "x86-64" ]]; then
 		TIME b "传统固件: ${Legacy_Firmware}"
@@ -388,9 +372,9 @@ TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"
 echo
 TIME z "  使用 核心数 为 [ ${CPUCORES} ], 线程数为 [ $(nproc) ]"
 echo
-TIME z "  经过几次测试,随机分配到 E5系列CPU 编译是最慢的,8171M 的CPU快很多，8272CL 的又比 8171M 快些！"
+TIME z "  随机分配到 E5系列CPU 编译是 最慢的, 8171M 的CPU 快很多，8272CL 的又比 8171M 快些！"
 echo
-TIME z "  如果你编译的插件较多，而你又分配到E5系列CPU的话，你可以考虑关闭了重新再来的！"
+TIME z "  如果编译的插件较多，而又分配到 E5系列 的 CPU，建议关闭 重新再来！"
 echo
 TIME z "  下面将使用 [ $(nproc) 线程 ] 编译固件"
 if [ -n "$(ls -A "${Home}/EXT4" 2>/dev/null)" ]; then

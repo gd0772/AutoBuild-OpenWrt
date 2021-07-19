@@ -268,10 +268,10 @@ fi
 if [[ "${PATCHVER}" != "unknown" ]]; then
 	PATCHVER=$(egrep -o "${PATCHVER}.[0-9]+" ${Home}/include/kernel-version.mk)
 fi
-if [[ "${REPO_BRANCH}" == "master" ]]; then
-	sed -i 's/distversion)%>/distversion)%><!--/g' package/lean/autocore/files/*/index.htm
-	sed -i 's/luciversion)%>)/luciversion)%>)-->/g' package/lean/autocore/files/*/index.htm
-fi
+#if [[ "${REPO_BRANCH}" == "master" ]]; then
+	#sed -i 's/distversion)%>/distversion)%><!--/g' package/lean/autocore/files/*/index.htm
+	#sed -i 's/luciversion)%>)/luciversion)%>)-->/g' package/lean/autocore/files/*/index.htm
+#fi
 [[ -e $GITHUB_WORKSPACE/amlogic_openwrt ]] && source $GITHUB_WORKSPACE/amlogic_openwrt
 [[ "${amlogic_kernel}" == "5.12.12_5.4.127" ]] && {
 	curl -fsSL https://raw.githubusercontent.com/ophub/amlogic-s9xxx-openwrt/main/.github/workflows/build-openwrt-lede.yml > open.yml
@@ -388,7 +388,7 @@ TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"
 echo
 TIME z "  使用 核心数 为 [ ${CPUCORES} ], 线程数为 [ $(nproc) ]"
 echo
-TIME z "  经过几次测试,随机分配到 E5系列CPU 编译是最慢的,8171M 的CPU快很多，8272CL 的又比 8171M 快一些！"
+TIME z "  经过几次测试,随机分配到 E5系列CPU 编译是最慢的,8171M 的CPU快很多，8272CL 的又比 8171M 快些！"
 echo
 TIME z "  如果你编译的插件较多，而你又分配到E5系列CPU的话，你可以考虑关闭了重新再来的！"
 echo

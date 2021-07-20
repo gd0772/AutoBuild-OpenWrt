@@ -1,0 +1,11 @@
+
+config global
+	option dark_primary '#483d8b'
+	option blur_dark '10'
+	option transparency_dark '0.5'
+	option mode 'normal'
+	option save '保存更改'
+	option primary '#008B8B'
+	option blur '1'
+	option transparency '0.1'
+

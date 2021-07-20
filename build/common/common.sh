@@ -28,8 +28,6 @@ Compte=$(date +%Y年%m月%d号%H时%M分)
 Diy_lede() {
 find . -name 'luci-app-netdata' -o -name 'netdata' -o -name 'luci-theme-argon' | xargs -i rm -rf {}
 
-rm -rf packages/gd772/luci-app-pptp-server
-
 git clone https://github.com/gd0772/package package/gd772
 rm -rf package/gd772/luci-app-pptp-server
 curl -fsSL https://raw.githubusercontent.com/gd0772/patch/main/x86.sh | sh

@@ -186,7 +186,7 @@ config server
 	option ip '156.154.71.1'
 	option port '853'
 	option type 'tls'
-	option server_group 'cn'
+	option server_group 'overseas'
 	option blacklist_ip '0'
 
 config server

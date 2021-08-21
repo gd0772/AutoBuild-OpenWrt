@@ -4,5 +4,5 @@ config turboacc 'config'
 	option hw_flow '1'
 	option fullcone_nat '1'
 	option dns_caching '0'
-	option bbr_cca '1'
+	option bbr_cca '0'
 

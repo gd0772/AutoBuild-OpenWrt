@@ -240,11 +240,11 @@ sed -i 's/=y/\"/g' Plug-in
 awk '$0=NR$0' Plug-in > Plug-2
 awk '{print "	" $0}' Plug-2 > Plug-in
 sed -i "s/^/TIME g \"/g" Plug-in
-#cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c > CPU
-#cat /proc/cpuinfo | grep "cpu cores" | uniq >> CPU
-#sed -i 's|[[:space:]]||g; s|^.||' CPU && sed -i 's|CPU||g; s|pucores:||' CPU
-#CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
-#rm -rf CPU
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c > CPU
+cat /proc/cpuinfo | grep "cpu cores" | uniq >> CPU
+sed -i 's|[[:space:]]||g; s|^.||' CPU && sed -i 's|CPU||g; s|pucores:||' CPU
+CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
+rm -rf CPU
 find . -name 'LICENSE' -o -name 'README' -o -name 'README.md' | xargs -i rm -rf {}
 find . -name 'CONTRIBUTED.md' -o -name 'README_EN.md' -o -name 'DEVICE_NAME' | xargs -i rm -rf {}
 if [[ `grep -c "KERNEL_PATCHVER:=" ${Home}/target/linux/${TARGET_BOARD}/Makefile` -eq '1' ]]; then
@@ -369,15 +369,15 @@ echo
 TIME z " 系统空间      类型   容量  已用  可用 使用率"
 cd ../ && df -hT $PWD && cd openwrt
 echo
-#TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"
-#echo
-#TIME z "  使用 核心数 为 [ ${CPUCORES} ], 线程数为 [ $(nproc) ]"
-#echo
-#TIME z "  随机分配到 E5系列CPU 编译是 最慢的, 8171M 的CPU 快很多，8272CL 的又比 8171M 快些！"
-#echo
-#TIME z "  如果编译的插件较多，而又分配到 E5系列 的 CPU，建议关闭 重新再来！"
-#echo
-#TIME z "  下面将使用 [ $(nproc) 线程 ] 编译固件"
+TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"
+echo
+TIME z "  使用 核心数 为 [ ${CPUCORES} ], 线程数为 [ $(nproc) ]"
+echo
+TIME z "  随机分配到 E5系列CPU 编译是 最慢的, 8171M 的CPU 快很多，8272CL 的又比 8171M 快些！"
+echo
+TIME z "  如果编译的插件较多，而又分配到 E5系列 的 CPU，建议关闭 重新再来！"
+echo
+TIME z "  下面将使用 [ $(nproc) 线程 ] 编译固件"
 if [ -n "$(ls -A "${Home}/EXT4" 2>/dev/null)" ]; then
 	echo
 	chmod -R +x ${Home}/EXT4

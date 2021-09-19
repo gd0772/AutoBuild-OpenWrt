@@ -8,7 +8,6 @@
 1. 直接在 OP后台 系统--命令行 或者 SSH 链接 OP 执行以下命令 更新
 - 5.4 内核：bash <(curl -s -S -L https://git.io/phicomm_n1_5.4.y.sh)
 - 5.10 内核：bash <(curl -s -S -L https://git.io/phicomm_n1_5.10.y.sh)
-- 5.13 内核：bash <(curl -s -S -L https://git.io/n1_5.13.xx)
 
 固件页面
 

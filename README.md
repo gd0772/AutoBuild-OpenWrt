@@ -1,12 +1,12 @@
 # x86 固件在线更新
 1. 在Luci里更新 直接在 OP后台 系统--更新固件
 2. 命令行 或者 SSH 链接 OP 执行以下命令 更新
-- 保留配置更新 bash /bin/AutoUpdate.sh
-- 不保留配置更新 bash /bin/AutoUpdate.sh -n
+- 保留配置更新 `bash /bin/AutoUpdate.sh`
+- 不保留配置更新 `bash /bin/AutoUpdate.sh -n`
 
 # N1 固件在线更新命令：(注意：需科学上网环境)
 1. 直接在 OP后台 系统--命令行 或者 SSH 链接 OP 执行以下命令 更新
-- bash <(curl -s -S -L https://git.io/Phicomm-n1_update)
+- `bash <(curl -s -S -L https://git.io/Phicomm-n1_update)`
 
 固件页面
 

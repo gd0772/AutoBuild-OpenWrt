@@ -7,6 +7,7 @@
 
 # 设置打包固件的机型，内核组合（请看说明）
 cat >$GITHUB_WORKSPACE/amlogic_openwrt <<-EOF
+rootfs_size=640
 amlogic_model=s905d
 amlogic_kernel=5.4.152
 EOF

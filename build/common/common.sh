@@ -259,7 +259,7 @@ if [[ "${PATCHVER}" != "unknown" ]]; then
 fi
 [[ -e $GITHUB_WORKSPACE/amlogic_openwrt ]] && source $GITHUB_WORKSPACE/amlogic_openwrt
 [[ "${amlogic_kernel}" == "5.12.12_5.4.127" ]] && {
-	curl -fsSL https://raw.githubusercontent.com/ophub/amlogic-s9xxx-openwrt/main/.github/workflows/build-openwrt-lede.yml > open.yml
+	curl -fsSL https://raw.githubusercontent.com/mdtycl/amlogic-s905d/main/.github/workflows/build-openwrt-lede.yml > open.yml
 	Make_ker="$(cat open.yml | grep ./make | cut -d "k" -f3 | sed s/[[:space:]]//g)"
 	TARGET_kernel="${Make_ker}"
 	TARGET_model="${amlogic_model}"

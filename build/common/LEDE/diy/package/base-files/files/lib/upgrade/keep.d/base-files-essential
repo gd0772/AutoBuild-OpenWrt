@@ -1,5 +1,4 @@
 # Essential files that will be always kept
-/etc/firewall.user
 /etc/hosts
 /etc/inittab
 /etc/group
@@ -13,4 +12,4 @@
 /mnt/network
 /etc/docker/daemon.json
 /etc/docker/key.json
-/etc/AdGuardHome.yaml
+/etc/config/AdGuardHome.yaml

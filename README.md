@@ -5,7 +5,7 @@
 - 不保留配置更新 **`bash /bin/AutoUpdate.sh -n`**
 - **x86 OpenWrt 固件默认信息**
 
-| 默认登陆IP  | 默认登号 | 默认密码 |
+| 默认登陆IP  | 默认账号 | 默认密码 |
 | ---- | ---- | ---- |
 | 192.168.123.2 | root | password |
 
@@ -14,7 +14,7 @@
 - **`bash <(curl -s -S -L https://git.io/Phicomm-n1_update)`**
 - **N1 OpenWrt 固件默认信息**
 
-| 默认登陆IP  | 默认登号 | 默认密码 | 默认WIFI | 默认WIFI密码 |
+| 默认登陆IP  | 默认账号 | 默认密码 | 默认WIFI | 默认WIFI密码 |
 | ---- | ---- | ---- | ---- | ---- |
 | 192.168.123.2 | root | password | Phicomm-n1 | password |
 

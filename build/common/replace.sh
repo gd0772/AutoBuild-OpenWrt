@@ -32,9 +32,9 @@ echo
 TIME h "执行：转换成其他源码固件"
 echo
 echo
-TIME y "您当前机型为：${DEFAULT_Device}"
-TIME y "当前源码内核：${REPO_Name}  /  ${Luci_Edition} / ${Kernel}"
-TIME y "当前固件格式：${EFI_Mode}${Firmware_SFX}"
+TIME y "当前源码：${REPO_Name}  /  ${Luci_Edition} / ${Kernel}"
+TIME y "固件格式：${EFI_Mode}${Firmware_SFX}"
+TIME y "设备型号：${DEFAULT_Device}"
 echo
 if [[ "${REPO_Name}" == "lede" ]]; then
 	if [[ `cat ${Download_Tags} | grep -c "19.07-lienol-${DEFAULT_Device}-.*${BOOT_Type}-.*${Firmware_SFX}"` -ge '1' ]]; then

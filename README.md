@@ -3,7 +3,7 @@
 2. 命令行 或者 SSH 链接 OP 执行以下命令 更新
 - 保留配置更新 **`bash /bin/AutoUpdate.sh`**
 - 不保留配置更新 **`bash /bin/AutoUpdate.sh -n`**
-**x86 OpenWrt 固件默认信息**
+- **x86 OpenWrt 固件默认信息**
 
 | 默认登陆IP  | 默认登号 | 默认密码 |
 | ---- | ---- | ---- |
@@ -12,7 +12,7 @@
 # N1 固件在线更新命令：(注意：需科学上网环境)
 1. 直接在 OP后台 系统--命令行 或者 SSH 链接 OP 执行以下命令 更新
 - **`bash <(curl -s -S -L https://git.io/Phicomm-n1_update)`**
-**N1 OpenWrt 固件默认信息**
+- **N1 OpenWrt 固件默认信息**
 
 | 默认登陆IP  | 默认登号 | 默认密码 | 默认WIFI | 默认WIFI密码 |
 | ---- | ---- | ---- | ---- | ---- |

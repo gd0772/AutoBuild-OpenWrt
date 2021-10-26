@@ -3,14 +3,13 @@
 # AutoBuild Module by Hyy2001
 # AutoUpdate for Openwrt
 
-Version=V6.2
+Version=V6.5
 
 Shell_Helper() {
 echo
 echo
 
 echo -e "${Yellow}命令用途：
-
 bash /bin/AutoUpdate.sh				[保留配置更新]
 bash /bin/AutoUpdate.sh	-n			[不保留配置更新]
 bash /bin/AutoUpdate.sh	-g			[把固件更改成其他作者固件,前提是你编译了有附带定时更新插件的其他作者的固件]
@@ -23,11 +22,14 @@ echo -e "${Purple}
 ===============================================================================================
 ${White}"
 echo
-rm -rf ${Download_Tags} && wget -q --no-cookie --no-check-certificate -T 15 -t 4 ${Github_Tags} -O ${Download_Tags}
-[[ -n ${Download_Tags} ]] && export CLOUD_Name="$(egrep -o "${LUCI_Name}-${CURRENT_Version}${BOOT_Type}-[a-zA-Z0-9]+${Firmware_SFX}" ${Download_Tags} | awk 'END {print}')"
-[[ -z ${CLOUD_Name} ]] && export CLOUD_Name="${LUCI_Name}-${CURRENT_Version}${Firmware_SFX}"
+[[ -f /etc/CLOUD_Name ]] && {
+	export CLOUD_Name="$(egrep -o "${LUCI_Name}-${CURRENT_Version}${BOOT_Type}-[a-zA-Z0-9]+${Firmware_SFX}" /etc/CLOUD_Name | awk 'END {print}')" > /dev/null 2>&1
+} || {
+	wget -q -P ${Download_Path} https://ghproxy.com/${Github_Tagstwo} -O ${Download_Path}/Github_Tags > /dev/null 2>&1
+	export CLOUD_Name="$(egrep -o "${LUCI_Name}-${CURRENT_Version}${BOOT_Type}-[a-zA-Z0-9]+${Firmware_SFX}" ${Download_Tags} | awk 'END {print}')" > /dev/null 2>&1
+	[[ ! -f /etc/CLOUD_Name ]] && [[ ${CLOUD_Name} ]] && echo "${CLOUD_Name}" > /etc/CLOUD_Name
+}
 echo -e "${Green}详细参数：
-
 /overlay 可用:					${Overlay_Available}
 /tmp 可用:					${TMP_Available}M
 固件下载位置:					${Download_Path}
@@ -67,14 +69,15 @@ export Input_Other=$2
 export Apidz="${Github##*com/}"
 export Author="${Apidz%/*}"
 export CangKu="${Apidz##*/}"
-export Github_Tags=https://api.github.com/repos/${Apidz}/releases/tags/AutoUpdate
+export Github_Tags="https://api.github.com/repos/${Apidz}/releases/tags/AutoUpdate"
+export Github_Tagstwo="${Github}/releases/download/AutoUpdate/Github_Tags"
 export Kernel="$(egrep -o "[0-9]+\.[0-9]+\.[0-9]+" /usr/lib/opkg/info/kernel.control)"
 export Overlay_Available="$(df -h | grep ":/overlay" | awk '{print $4}' | awk 'NR==1')"
 rm -rf "${Download_Path}" && export TMP_Available="$(df -m | grep "/tmp" | awk '{print $4}' | awk 'NR==1' | awk -F. '{print $1}')"
 [ ! -d "${Download_Path}" ] && mkdir -p ${Download_Path}
 opkg list | awk '{print $1}' > ${Download_Path}/Installed_PKG_List
-opkg remove gzip > /dev/null 2>&1
-AutoUpdate_Log_Path=/tmp
+export PKG_List="${Download_Path}/Installed_PKG_List"
+export AutoUpdate_Log_Path="/tmp"
 GET_PID() {
 	local Result
 	while [[ $1 ]];do
@@ -133,7 +136,7 @@ x86-64)
 	export EFI_Mode=""
 	[[ -z "${Firmware_Type}" ]] && export Firmware_SFX=".bin"
 esac
-CURRENT_Ver="${CURRENT_Version}${BOOT_Type}"
+export CURRENT_Ver="${CURRENT_Version}${BOOT_Type}"
 echo "CURRENT_Version=${CURRENT_Version}" > /etc/openwrt_ver
 echo -e "\nCURRENT_Model=${EFI_Mode}${Firmware_SFX}" >> /etc/openwrt_ver
 echo -e "\nNEI_Luci=${Kernel} - ${Luci_Edition}" >> /etc/openwrt_ver
@@ -149,12 +152,12 @@ else
 	-t | -n | -f | -u | -N | -s | -w)
 		case ${Input_Option} in
 		-t)
-			Input_Other="-t"
+			export Input_Other="-t"
 			TIME h "执行: 测试模式"
-			TIME g "测试模式(只运行,不安装,查看更新固件操作流程是否正确)"
+			TIME z "测试模式(只运行,不安装,查看更新固件操作流程是否正确)"
 		;;
 		-w)
-			Input_Other="-w"
+			export Input_Other="-w"
 		;;
 		-n | -N)
 			export Upgrade_Options="sysupgrade -n"
@@ -199,7 +202,7 @@ else
 				exit 1
 			}
 	;;
-	-h | -H)
+	-h | -H | -l | -L)
 		Shell_Helper
 	;;
 	-g | -G)
@@ -213,24 +216,24 @@ else
 	;;
 	esac
 fi
-TIME b "检测网络环境中,请稍后..."
-if [[ "$(cat ${Download_Path}/Installed_PKG_List)" =~ curl ]];then
-	export Google_Check=$(curl -I -s --connect-timeout 8 google.com -w %{http_code} | tail -n1)
-	if [ ! "$Google_Check" == 301 ];then
-		TIME z "警告：梯子翻墙失败,或许有可能会获取不了云端固件版本信息!"
-	else
-		TIME y "网络检测成功,您的梯子翻墙成功！"
-	fi
-fi
 [[ -z ${CURRENT_Version} ]] && TIME r "本地固件版本获取失败,请检查/bin/openwrt_info文件的值!" && exit 1
 [[ -z ${Github} ]] && TIME r "Github地址获取失败,请检查/bin/openwrt_info文件的值!" && exit 1
 TIME g "正在获取云端固件版本信息..."
 [ ! -d ${Download_Path} ] && mkdir -p ${Download_Path}
-wget -q --no-cookie --no-check-certificate -T 15 -t 4 ${Github_Tags} -O ${Download_Tags}
-[[ ! $? == 0 ]] && {
-	TIME r "获取固件版本信息失败,请检测网络或您的网络需要翻墙,或者您更改的Github地址为无效地址!"
-	exit 1
-}
+wget -q ${Github_Tags} -O ${Download_Tags} > /dev/null 2>&1
+if [[ $? -ne 0 ]];then
+	wget -q -P ${Download_Path} https://pd.zwc365.com/${Github_Tagstwo} -O ${Download_Path}/Github_Tags > /dev/null 2>&1
+	if [[ $? -ne 0 ]];then
+		wget -q -P ${Download_Path} https://ghproxy.com/${Github_Tagstwo} -O ${Download_Path}/Github_Tags > /dev/null 2>&1
+	fi
+	if [[ $? -ne 0 ]];then
+		TIME r "获取固件版本信息失败,请检测网络,或者您更改的Github地址为无效地址,或者您的仓库是私库,或者发布已被删除!"
+		echo
+		exit 1
+	fi
+fi
+export CLOUD_Name="$(egrep -o "${LUCI_Name}-${CURRENT_Version}${BOOT_Type}-[a-zA-Z0-9]+${Firmware_SFX}" ${Download_Tags} | awk 'END {print}')"
+[[ ! -f /etc/CLOUD_Name ]] && echo "${CLOUD_Name}" > /etc/CLOUD_Name
 TIME g "正在比对云端固件和本地安装固件版本..."
 export CLOUD_Firmware="$(egrep -o "${Egrep_Firmware}-[0-9]+${BOOT_Type}-[a-zA-Z0-9]+${Firmware_SFX}" ${Download_Tags} | awk 'END {print}')"
 export CLOUD_sion="$(echo ${CLOUD_Firmware} | egrep -o "${REPO_Name}-${DEFAULT_Device}-[0-9]+")"
@@ -246,6 +249,7 @@ export CLOUD_Version="$(echo ${CLOUD_Firmware} | egrep -o "${REPO_Name}-${DEFAUL
 }
 export Firmware_Name="$(echo ${CLOUD_Firmware} | egrep -o "${Egrep_Firmware}-[0-9]+${BOOT_Type}-[a-zA-Z0-9]+")"
 export Firmware="${CLOUD_Firmware}"
+export CLOUD_Name="$(egrep -o "${LUCI_Name}-${CURRENT_Version}${BOOT_Type}-[a-zA-Z0-9]+${Firmware_SFX}" ${Download_Tags} | awk 'END {print}')"
 let X=$(grep -n "${Firmware}" ${Download_Tags} | tail -1 | cut -d : -f 1)-4
 let CLOUD_Firmware_Size=$(sed -n "${X}p" ${Download_Tags} | egrep -o "[0-9]+" | awk '{print ($1)/1048576}' | awk -F. '{print $1}')+1
 echo -e "\n本地版本：${CURRENT_Ver}"
@@ -293,27 +297,47 @@ echo "固件格式：${Firmware_SFX}"
 }
 echo "固件名称：${Firmware}"
 echo "下载保存：${Download_Path}"
-sleep 1
+echo "固件体积：${CLOUD_Firmware_Size}M"
 cd ${Download_Path}
-TIME g "正在下载云端固件,请耐心等待..."
-wget -q --no-cookie --no-check-certificate -T 15 -t 4 "${Github_Release}/${Firmware}" -O ${Firmware}
-if [[ $? -ne 0 ]];then
-	wget -q --no-cookie --no-check-certificate -T 15 -t 4 "https://ghproxy.com/${Github_Release}/${Firmware}" -O ${Firmware}
-	if [[ $? -ne 0 ]];then
-		TIME r "下载云端固件失败,请尝试手动安装!"
-		echo
-		exit 1
+[[ "$(cat ${Download_Path}/Installed_PKG_List)" =~ curl ]] && {
+	export Google_Check=$(curl -I -s --connect-timeout 8 google.com -w %{http_code} | tail -n1)
+	if [ ! "$Google_Check" == 301 ];then
+		TIME g "正在下载云端固件,请耐心等待..."
+		wget -q "https://ghproxy.com/${Github_Release}/${Firmware}" -O ${Firmware}
+		if [[ $? -ne 0 ]];then
+			wget -q "https://pd.zwc365.com/${Github_Release}/${Firmware}" -O ${Firmware}
+			if [[ $? -ne 0 ]];then
+				TIME r "下载云端固件失败,请尝试手动安装!"
+				echo
+				exit 1
+			else
+				TIME y "下载云端固件成功!"
+			fi
+		else
+			TIME y "下载云端固件成功!"
+		fi
 	else
-		TIME y "下载云端固件成功!"
+		TIME g "正在下载云端固件,请耐心等待..."
+		wget -q "${Github_Release}/${Firmware}" -O ${Firmware}
+		if [[ $? -ne 0 ]];then
+			wget -q "https://ghproxy.com/${Github_Release}/${Firmware}" -O ${Firmware}
+			if [[ $? -ne 0 ]];then
+				TIME r "下载云端固件失败,请尝试手动安装!"
+				echo
+				exit 1
+			else
+				TIME y "下载云端固件成功!"
+			fi
+		else
+			TIME y "下载云端固件成功!"
+		fi
 	fi
-else
-	TIME y "下载云端固件成功!"
-fi
-CLOUD_MD5=$(md5sum ${Firmware} | cut -c1-3)
-CLOUD_256=$(sha256sum ${Firmware} | cut -c1-3)
-MD5_256=$(echo ${Firmware} | egrep -o "[a-zA-Z0-9]+${Firmware_SFX}" | sed -r "s/(.*)${Firmware_SFX}/\1/")
-CURRENT_MD5="$(echo "${MD5_256}" | cut -c1-3)"
-CURRENT_256="$(echo "${MD5_256}" | cut -c 4-)"
+}
+export CLOUD_MD5=$(md5sum ${Firmware} | cut -c1-3)
+export CLOUD_256=$(sha256sum ${Firmware} | cut -c1-3)
+export MD5_256=$(echo ${Firmware} | egrep -o "[a-zA-Z0-9]+${Firmware_SFX}" | sed -r "s/(.*)${Firmware_SFX}/\1/")
+export CURRENT_MD5="$(echo "${MD5_256}" | cut -c1-3)"
+export CURRENT_256="$(echo "${MD5_256}" | cut -c 4-)"
 [[ ${CURRENT_MD5} != ${CLOUD_MD5} ]] && {
 	TIME r "MD5对比失败,固件可能在下载时损坏,请检查网络后重试!"
 	exit 1
@@ -332,12 +356,17 @@ TIME g "准备更新固件,更新期间请不要断开电源或重启设备 ..."
 }
 sleep 2
 TIME g "正在更新固件,请耐心等待 ..."
+[[ "$(cat ${PKG_List})" =~ gzip ]] && opkg remove gzip > /dev/null 2>&1
 if [[ "${AutoUpdate_Mode}" == 1 ]] || [[ "${Update_Mode}" == 1 ]]; then
+	source /etc/deletefile
 	cp -Rf /etc/config/network /mnt/network
+	mv -f /etc/config/luci /etc/config/luci-
 	sysupgrade -b /mnt/back.tar.gz
 	[[ $? == 0 ]] && {
+		mv -f /etc/config/luci- /etc/config/luci
 		export Upgrade_Options="sysupgrade -f /mnt/back.tar.gz"
 	} || {
+		mv -f /etc/config/luci- /etc/config/luci
 		export Upgrade_Options="sysupgrade -q"
 	}
 fi
@@ -345,4 +374,3 @@ fi
 ${Upgrade_Options} ${Firmware}
 
 exit 0
-

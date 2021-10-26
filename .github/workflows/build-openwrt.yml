@@ -168,7 +168,6 @@ jobs:
         if [ "${BY_INFORMATION}" == "true" ]; then
           source "${PATH1}/upgrade.sh" && GET_TARGET_INFO
           source "${PATH1}/common.sh" && Diy_xinxi
-          chmod -R 755 .
         fi
     - name: 下载dl库
       id: package

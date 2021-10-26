@@ -54,7 +54,7 @@ clear
 echo
 echo
 echo
-TIME l " 1. Lede_5.10内核,LUCI 18.06版本"
+TIME l " 1. Lede_5.4内核,LUCI 18.06版本"
 echo
 TIME l " 2. Lienol_4.14内核,LUCI 19.07版本"
 echo
@@ -77,7 +77,7 @@ case $CHOOSE in
 	1)
 		REPO_URL="https://github.com/coolsnowwolf/lede"
 		REPO_BRANCH="master"
-		CONFIG="Lede_5.10内核,LUCI 18.06版本"
+		CONFIG="Lede_5.4内核,LUCI 18.06版本"
 		echo
 		TIME y "您选择了：${CONFIG}"
 		echo

@@ -27,7 +27,6 @@ Compte=$(date +%Y年%m月%d号%H时%M分)
 ################################################################################################################
 Diy_lede() {
 
-git clone https://github.com/gd0772/package package/gd772
 wget https://raw.githubusercontent.com/gd0772/patch/main/gd772.sh
 bash gd772.sh
 

@@ -19,6 +19,14 @@ GET_TARGET_INFO() {
 		elif [[ "${TARGET_PROFILE}" == "phicomm_k3" ]]; then
 			Up_Firmware="openwrt-bcm53xx-generic-phicomm_k3-squashfs.trx"
 			Firmware_sfx="trx"
+		elif [[ "${TARGET_PROFILE}" == "xiaomi_mi-router-3g" ]]; then
+			TARGET_PROFILE="xiaomi_mir3g"
+			Up_Firmware="openwrt-${TARGET_BOARD}-${TARGET_SUBTARGET}-${TARGET_PROFILE}-squashfs-sysupgrade.bin"
+			Firmware_sfx="bin"
+		elif [[ "${TARGET_PROFILE}" == "xiaomi_mi-router-3g-v2" ]]; then
+			TARGET_PROFILE="xiaomi_mir3gv2"
+			Up_Firmware="openwrt-${TARGET_BOARD}-${TARGET_SUBTARGET}-${TARGET_PROFILE}-squashfs-sysupgrade.bin"
+			Firmware_sfx="bin"
 		else
 			Up_Firmware="openwrt-${TARGET_BOARD}-${TARGET_SUBTARGET}-${TARGET_PROFILE}-squashfs-sysupgrade.bin"
 			Firmware_sfx="bin"
@@ -48,11 +56,19 @@ GET_TARGET_INFO() {
 			Legacy_Firmware="immortalwrt-x86-64-generic-squashfs-combined.${Firmware_sfxo}"
 			UEFI_Firmware="immortalwrt-x86-64-generic-squashfs-combined-efi.${Firmware_sfxo}"
 			Firmware_sfx="${Firmware_sfxo}"
-		elif [[ "${TARGET_PROFILE}" == "phicomm-k3" ]]; then
-			Up_Firmware="immortalwrt-bcm53xx-phicomm-k3-squashfs.trx"
+		elif [[ "${TARGET_PROFILE}" == "phicomm_k3" ]]; then
+			Up_Firmware="immortalwrt-bcm53xx-generic-phicomm_k3-squashfs.trx"
 			Firmware_sfx="trx"
+		elif [[ "${TARGET_PROFILE}" == "xiaomi_mi-router-3g" ]]; then
+			TARGET_PROFILE="xiaomi_mir3g"
+			Up_Firmware="openwrt-ramips-mt7621-xiaomi_mir3g-squashfs-sysupgrade.bin"
+			Firmware_sfx="bin"
+		elif [[ "${TARGET_PROFILE}" == "xiaomi_mi-router-3g-v2" ]]; then
+			TARGET_PROFILE="xiaomi_mir3gv2"
+			Up_Firmware="openwrt-ramips-mt7621-xiaomi_mir3gv2-squashfs-sysupgrade.bin"
+			Firmware_sfx="bin"
 		else
-			Up_Firmware="openwrt-${TARGET_BOARD}-${TARGET_SUBTARGET}-${TARGET_PROFILE}-squashfs-sysupgrade.bin"
+			Up_Firmware="immortalwrt-${TARGET_BOARD}-${TARGET_SUBTARGET}-${TARGET_PROFILE}-squashfs-sysupgrade.bin"
 			Firmware_sfx="bin"
 		fi
 	;;
@@ -68,10 +84,7 @@ GET_TARGET_INFO() {
 }
 
 Diy_Part1() {
-	sed -i '/luci-app-autoupdate/d' .config > /dev/null 2>&1
-	echo -e "\nCONFIG_PACKAGE_luci-app-autoupdate=y" >> .config
-	sed -i '/luci-app-ttyd/d' .config > /dev/null 2>&1
-	echo -e "\nCONFIG_PACKAGE_luci-app-ttyd=y" >> .config
+sed -i 's/DEFAULT_PACKAGES +=/DEFAULT_PACKAGES += luci-app-autoupdate luci-app-ttyd/g' target/linux/*/Makefile
 }
 
 Diy_Part2() {
@@ -97,20 +110,27 @@ Diy_Part3() {
 	AutoBuild_Firmware="${LUCI_Name}-${Openwrt_Version}"
 	Firmware_Path="${Home}/upgrade"
 	Mkdir ${Home}/bin/Firmware
-	if [[ `ls ${Home}/upgrade | grep -c "sysupgrade.bin"` -ge '1' ]]; then
-		mv ${Home}/upgrade/*sysupgrade.bin ${Home}/bin/Firmware/${Up_Firmware}
-		mv ${Home}/bin/Firmware/${Up_Firmware} ${Home}/upgrade/${Up_Firmware}
+	if [[ `ls ${Firmware_Path} | grep -c "sysupgrade.bin"` -ge '1' ]]; then
+		Up_BinFirmware="openwrt-${TARGET_BOARD}-${TARGET_SUBTARGET}-${TARGET_PROFILE}-squashfs-sysupgrade.bin"
+		mv ${Firmware_Path}/*sysupgrade.bin ${Home}/bin/Firmware/${Up_BinFirmware}
+		mv ${Home}/bin/Firmware/${Up_BinFirmware} ${Firmware_Path}/${Up_BinFirmware}
 	fi
 	cd ${Firmware_Path}
+	if [[ `ls | grep -c "xiaomi_mi-router-3g"` -ge '1' ]]; then
+		rename -v "s/xiaomi_mi-router-3g/xiaomi_mir3g/" * > /dev/null 2>&1
+	fi
+	if [[ `ls | grep -c "xiaomi_mi-router-3g-v2"` -ge '1' ]]; then
+		rename -v "s/xiaomi_mi-router-3g-v2/xiaomi_mir3gv2/" * > /dev/null 2>&1
+	fi
 	case "${TARGET_PROFILE}" in
 	x86-64)
-		[[ -f ${Legacy_Firmware} ]] && {
+		[[ -e ${Legacy_Firmware} ]] && {
 			MD5=$(md5sum ${Legacy_Firmware} | cut -c1-3)
 			SHA256=$(sha256sum ${Legacy_Firmware} | cut -c1-3)
 			SHA5BIT="${MD5}${SHA256}"
 			cp ${Legacy_Firmware} ${Home}/bin/Firmware/${AutoBuild_Firmware}-Legacy-${SHA5BIT}.${Firmware_sfx}
 		}
-		[[ -f ${UEFI_Firmware} ]] && {
+		[[ -e ${UEFI_Firmware} ]] && {
 			MD5=$(md5sum ${UEFI_Firmware} | cut -c1-3)
 			SHA256=$(sha256sum ${UEFI_Firmware} | cut -c1-3)
 			SHA5BIT="${MD5}${SHA256}"
@@ -122,7 +142,7 @@ Diy_Part3() {
 		cp Update_Logs.json ${Home}/bin/Firmware/Update_Logs.json
 	;;
 	*)
-		[[ -f ${Up_Firmware} ]] && {
+		[[ -e ${Up_Firmware} ]] && {
 			MD5=$(md5sum ${Up_Firmware} | cut -c1-3)
 			SHA256=$(sha256sum ${Up_Firmware} | cut -c1-3)
 			SHA5BIT="${MD5}${SHA256}"
@@ -141,8 +161,4 @@ Mkdir() {
 		mkdir -p ${_DIR}
 	fi
 	unset _DIR
-}
-
-Diy_xinxi() {
-	Diy_xinxi_Base
 }

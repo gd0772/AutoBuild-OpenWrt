@@ -1,5 +1,0 @@
-#!/bin/sh
-
-MHz=$(grep 'MHz' /proc/cpuinfo | awk '{print $4}' | awk 'NR==1')
-TEMP=$(sensors 2>/dev/null | grep 'Core 0' | awk '{print $3}')
-echo "$MHz MHz $TEMP "

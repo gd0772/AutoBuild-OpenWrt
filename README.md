@@ -16,7 +16,7 @@
 
 | 默认登陆IP  | 默认账号 | 默认密码 | 默认WIFI | 默认WIFI密码 |
 | ---- | ---- | ---- | ---- | ---- |
-| 192.168.123.2 | root | password | Phicomm-n1 | password |
+| 192.168.123.2 | root | password | Phicomm_n1 | password |
 
 固件页面
 

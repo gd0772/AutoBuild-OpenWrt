@@ -28,5 +28,5 @@
 - [天灵 源码仓库](https://github.com/project-openwrt/openwrt.git)
 - [P3TERX 自动编译脚本](https://github.com/P3TERX/Actions-OpenWrt)
 - [Hyy2001X 定时更新脚本](https://github.com/Hyy2001X/AutoBuild-Actions)
-- [danshui-git 云编译的说明及修改](https://github.com/danshui-git/Build-OpenWrt)
+- [danshui-git 云编译的说明及DIY](https://github.com/danshui-git/build-actions)
 - 同时感谢 flippy 分享的 N1 打包 及 升级脚本

@@ -10,5 +10,5 @@ sed -i "s/'OpenWrt'/'N1'/g" package/base-files/files/bin/config_generate        
 cat >$GITHUB_WORKSPACE/amlogic_openwrt <<-EOF
 rootfs_size=940
 amlogic_model=s905d
-amlogic_kernel=5.4.155
+amlogic_kernel=5.4.155_5.14.15
 EOF

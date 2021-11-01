@@ -140,7 +140,7 @@ if [[ -n "$(ls -A "$GITHUB_WORKSPACE/amlogic_openwrt" 2>/dev/null)" ]]; then
 		amlogic_kernel="${amlogic_kernel}"
 	fi
 	if [[ -z "${Make_kernel}" ]];then
-		amlogic_kernel="5.4.155"
+		amlogic_kernel="5.4.155_5.14.15"
 	fi
 	minsize="$(egrep -o "ROOT_MB=+.*?[0-9]" $GITHUB_WORKSPACE/make)"
 	rootfssize="ROOT_MB=${rootfs_size}"
@@ -304,7 +304,7 @@ if [[ "${BY_INFORMATION}" == "true" ]]; then
 	
 	if [[ "${Modelfile}" == "openwrt_amlogic" ]]; then
 		[[ -e $GITHUB_WORKSPACE/amlogic_openwrt ]] && source $GITHUB_WORKSPACE/amlogic_openwrt
-		[[ "${amlogic_kernel}" == "5.4.155" ]] && {
+		[[ "${amlogic_kernel}" == "5.4.155_5.14.15" ]] && {
 			curl -fsSL https://raw.githubusercontent.com/mdtycl/amlogic-s905d/master/.github/workflows/build-openwrt-lede.yml > open.yml
 			Make_ker="$(cat open.yml | grep ./make | cut -d "k" -f3 | sed s/[[:space:]]//g)"
 			TARGET_kernel="${Make_ker}"

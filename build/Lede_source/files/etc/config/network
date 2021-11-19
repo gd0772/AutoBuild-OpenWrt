@@ -21,14 +21,3 @@ config interface 'VPN'
 	option proto 'static'
 	option ipaddr '10.10.10.1'
 	option netmask '255.255.255.0'
-
-config interface 'docker'
-	option ifname 'docker0'
-	option proto 'none'
-	option auto '0'
-
-config device 'docker0'
-	option type 'bridge'
-	option name 'docker0'
-	list ifname 'docker0'
-

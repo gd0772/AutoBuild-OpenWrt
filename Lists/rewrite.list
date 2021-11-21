@@ -1,0 +1,222 @@
+{
+  "rewrite": {
+    "note": "elecV2P 重写规则",
+    "total": 1,
+    "active": 1,
+    "enable": true,
+    "list": [
+      {
+        "match": "https://ant.xunsl.com/v17/Ad/getReward.json",
+        "stage": "res",
+        "target": "jc_5_60.js",
+        "enable": true
+      }
+    ]
+  },
+  "rewritesub": {
+    "Bc0zQEtn": {
+      "name": "中青看点重写订阅",
+      "resource": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqcx.json",
+      "type": "rewrite",
+      "note": "",
+      "date": "2021-11-14 04:55:31",
+      "total": 10,
+      "active": 10,
+      "enable": true,
+      "bkcolor": "#11748d",
+      "collapse": false,
+      "list": [
+        {
+          "match": "https://kandian.wkandian.com/v5/article/info.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqwz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/article/detail.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqwz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/user/stay.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqwz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/CommonReward/toGetReward.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqqd.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v17/NewTask/getTaskList.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zq_today_score.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/nameless/adlickstart.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqkkz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/CommonReward/toGetReward.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqbox.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/wechat/withdraw2.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zq_withdraw.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/task/browse_start.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqllz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://kandian.wkandian.com/v5/Sousuo/playStart.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqssz.js",
+          "enable": true,
+          "stage": "res"
+        }
+      ]
+    },
+    "Fnn3VM5q": {
+      "name": "晶彩看点重写订阅",
+      "resource": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jccx.json",
+      "type": "rewrite",
+      "note": "",
+      "date": "2021-11-14 04:56:17",
+      "total": 8,
+      "active": 8,
+      "enable": true,
+      "bkcolor": "#289bc7",
+      "collapse": false,
+      "list": [
+        {
+          "match": "https://ant.xunsl.com/v5/article/info.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jcwz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://ant.xunsl.com/v5/article/detail.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jcwz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://ant.xunsl.com/v5/nameless/adlickstart.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jckkz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://ant.xunsl.com/v5/CommonReward/toGetReward.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jcqd.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://ant.xunsl.com/v5/CommonReward/toGetReward.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jcbox.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://ant.xunsl.com/v5/user/stay.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jcwz.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://ant.xunsl.com/v5/wechat/withdraw2.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jc_withdraw.js",
+          "enable": true,
+          "stage": "res"
+        },
+        {
+          "match": "https://ant.xunsl.com/v17/NewTask/getTaskList.json",
+          "target": "https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jc_today_score.js",
+          "enable": true,
+          "stage": "res"
+        }
+      ]
+    },
+    "RTPilsE5": {
+      "name": "晶彩天气重写订阅",
+      "resource": "jctq_rewrite_subscribe.json",
+      "type": "rewrite",
+      "note": "",
+      "date": "2021-11-14 04:56:37",
+      "total": 9,
+      "active": 9,
+      "enable": true,
+      "bkcolor": "#9315b9",
+      "collapse": false,
+      "list": [
+        {
+          "match": "https://tq.xunsl.com/v17/NewTask/getTaskListByWeather.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/CommonReward/toGetReward.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/article/info.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/article/detail.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/user/stay.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/nameless/adlickstart.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/wechat/withdraw2.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/Weather/giveBoxOnWeather.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        },
+        {
+          "match": "https://tq.xunsl.com/v5/weather/giveTimeInterval.json",
+          "stage": "req",
+          "target": "https://raw.githubusercontent.com/leafxcy/JavaScript/main/jctq/jctq_rewrite.js",
+          "enable": true
+        }
+      ]
+    }
+  }
+}

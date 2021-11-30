@@ -22,10 +22,9 @@ config smartdns
 	option serve_expired '0'
 	option rr_ttl_min '0'
 	option redirect 'none'
-	option enabled '1'
 	list old_redirect 'none'
 	list old_port '6053'
-	list old_enabled '1'
+	list old_enabled '0'
 
 config server
 	option enabled '1'

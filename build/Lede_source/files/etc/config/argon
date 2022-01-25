@@ -5,7 +5,6 @@ config global
 	option transparency_dark '0.5'
 	option mode 'normal'
 	option save '保存更改'
-	option primary '#008B8B'
+	option primary '#3CB371'
+	option transparency '0'
 	option blur '1'
-	option transparency '0.1'
-

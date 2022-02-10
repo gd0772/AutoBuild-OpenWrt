@@ -11,7 +11,8 @@
 
 # N1 固件在线更新命令：(注意：需科学上网环境)
 1. 直接在 OP后台 系统--命令行 或者 SSH 链接 OP 执行以下命令 更新
-- **update** 或 **`bash <(curl -Lso- https://git.io/Phicomm-n1_update)`** 然后按提示操作即可！
+- **update**然后按提示操作即可！
+- Docker 相关的一键安装 同样在命令行 或者 SSH 里执行**n1_docker**然后按提示操作即可！
 - **N1 OpenWrt 固件默认信息**
 
 | 默认登陆IP  | 默认账号 | 默认密码 | 默认WIFI | 默认WIFI密码 |

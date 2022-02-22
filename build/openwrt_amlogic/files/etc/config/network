@@ -16,8 +16,3 @@ config interface 'lan'
 	option netmask '255.255.255.0'
 	option delegate '0'
 
-config interface 'VPN'
-	option ifname 'ipsec0'
-	option proto 'static'
-	option ipaddr '10.10.10.1'
-	option netmask '255.255.255.0'

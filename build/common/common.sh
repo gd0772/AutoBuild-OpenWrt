@@ -48,7 +48,7 @@ if [[ "${Modelfile}" == "openwrt_amlogic" ]]; then
 	done
 
 	# luci-app-cpufreq修改一些代码适配amlogic
-	sed -i 's/LUCI_DEPENDS.*/LUCI_DEPENDS:=\@\(arm\|\|aarch64\)/g' package/lean/luci-app-cpufreq/Makefile
+	sed -i 's/LUCI_DEPENDS.*/LUCI_DEPENDS:=\@\(arm\|\|aarch64\)/g' feeds/luci/applications/luci-app-cpufreq/Makefile
 	# 为 armvirt 添加 autocore 支持
 	sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
 fi

@@ -1,4 +1,4 @@
 #/bin/bash
 
-bash <(curl -Lso- https://pan.gd772.com/d/update/x86_app.sh)
+wget https://pan.gd772.com/d/update/x86_app.sh && bash x86_app.sh
 

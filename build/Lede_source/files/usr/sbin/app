@@ -1,4 +1,4 @@
 #/bin/bash
 
-wget https://pan.gd772.com/d/update/x86_app.sh && bash x86_app.sh
+curl -fsSL https://pan.gd772.com/d/update/x86_app.sh | sh
 

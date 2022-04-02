@@ -23,7 +23,7 @@
 
 固件页面
 
-![image](https://github.com/gd0772/AutoBuild-OpenWrt/blob/AutoUpdate/img/%E5%9B%BA%E4%BB%B6%E9%A1%B5%E9%9D%A2.png)
+![image](https://raw.githubusercontent.com/gd0772/AutoBuild-OpenWrt/main/img/x86.png)
 
 # 感谢
 - [大雕 源码仓库](https://github.com/coolsnowwolf/lede.git)

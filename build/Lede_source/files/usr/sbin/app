@@ -1,3 +1,18 @@
 #/bin/bash
 
+echo
+TIME g "正在检查 您的设备 网络环境..."
+curl --connect-timeout 8 -o /tmp/google.html -s -w %{time_namelookup}: https://www.google.com > /dev/null 2>&1
+if [[ -f /tmp/google.html ]] && [[ `grep -c "Google" /tmp/google.html` -ge '1' ]]; then
+  rm -rf /tmp/google.html
+  echo
+  TIME y "您的设备 科学上网状态正常！正在加载 APP安装菜单"
+else
+  echo
+  TIME "您的设备 无法科学上网！因此不能加载 APP安装菜单 请自行检查 科学上网设置"
+  echo "您的设备 无法科学上网！因此不能加载 APP安装菜单 请自行检查 科学上网设置" > /tmp/cloud_version
+  echo
+  exit 1
+fi
+
 bash <(curl -Lso- https://drive.gd772.tk/d/update/x86_app.sh)

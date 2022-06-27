@@ -15,4 +15,4 @@ else
   exit 1
 fi
 
-bash <(curl -Lso- https://drive.gd772.tk/d/update/x86_app.sh)
+bash <(curl -Lso- https://drive.smayun.xyz/d/update/x86_app.sh)

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 echo
 TIME g "正在检查 您的设备 网络环境..."

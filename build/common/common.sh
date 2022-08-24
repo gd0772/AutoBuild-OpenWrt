@@ -299,7 +299,7 @@ if [[ "${BY_INFORMATION}" == "true" ]]; then
         [[ -n ${KERNEL_PATC} ]] && export LINUX_KERNEL="$(egrep -o LINUX_KERNEL_HASH-${KERNEL_PATC}\.[0-9]+ $HOME_PATH/include/kernel-${KERNEL_PATC} |cut -d "-" -f2)"
         [[ -z ${LINUX_KERNEL} ]] && export LINUX_KERNEL="nono"
 	      PATCHVER="unknown"
-	fi
+
 	if [[ ! "${PATCHVER}" == "unknown" ]]; then
 		PATCHVER=$(egrep -o "${PATCHVER}.[0-9]+" ${Home}/include/kernel-version.mk)
 	fi

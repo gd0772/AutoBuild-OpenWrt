@@ -6,6 +6,5 @@ wget https://raw.githubusercontent.com/gd0772/patch/main/x86.sh
 bash x86.sh
 
 # python-cryptography
-rm -rf feeds/packages/lang/python/python-cryptography
-svn co https://github.com/openwrt/packages/trunk/lang/python/python-cryptography feeds/packages/lang/python/python-cryptography
-
+# rm -rf feeds/packages/lang/python/python-cryptography
+# svn co https://github.com/openwrt/packages/trunk/lang/python/python-cryptography feeds/packages/lang/python/python-cryptography

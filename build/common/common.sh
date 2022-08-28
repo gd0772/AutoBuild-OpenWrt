@@ -289,16 +289,17 @@ if [[ "${BY_INFORMATION}" == "true" ]]; then
 
         if [[ "${REPO_BRANCH}" == "openwrt-18.06" ]] || [[ "${REPO_BRANCH}" == "openwrt-21.02" ]]; then
         export KERNEL_PATC=""
-        export KERNEL_PATC="$(egrep KERNEL_PATCHVER:=[0-9]+\.[0-9]+ $HOME_PATH/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
-        [[ -z ${KERNEL_PATC} ]] && export KERNEL_PATC="$(egrep KERNEL_PATCHVER=[0-9]+\.[0-9]+ $HOME_PATH/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
-        [[ -n ${KERNEL_PATC} ]] && export LINUX_KERNEL="$(egrep -o LINUX_KERNEL_HASH-${KERNEL_PATC}\.[0-9]+ $HOME_PATH/include/kernel-version.mk |cut -d "-" -f2)"
+        export KERNEL_PATC="$(egrep KERNEL_PATCHVER:=[0-9]+\.[0-9]+ ${Home}/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
+        [[ -z ${KERNEL_PATC} ]] && export KERNEL_PATC="$(egrep KERNEL_PATCHVER=[0-9]+\.[0-9]+ ${Home}/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
+        [[ -n ${KERNEL_PATC} ]] && export LINUX_KERNEL="$(egrep -o LINUX_KERNEL_HASH-${KERNEL_PATC}\.[0-9]+ ${Home}/include/kernel-version.mk |cut -d "-" -f2)"
         [[ -z ${LINUX_KERNEL} ]] && export LINUX_KERNEL="nono"
         else
         export KERNEL_PATC=""
-        export KERNEL_PATC="$(egrep KERNEL_PATCHVER:=[0-9]+\.[0-9]+ $HOME_PATH/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
-        [[ -z ${KERNEL_PATC} ]] && export KERNEL_PATC="$(egrep KERNEL_PATCHVER=[0-9]+\.[0-9]+ $HOME_PATH/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
-        [[ -n ${KERNEL_PATC} ]] && export LINUX_KERNEL="$(egrep -o LINUX_KERNEL_HASH-${KERNEL_PATC}\.[0-9]+ $HOME_PATH/include/kernel-${KERNEL_PATC} |cut -d "-" -f2)"
+        export KERNEL_PATC="$(egrep KERNEL_PATCHVER:=[0-9]+\.[0-9]+ ${Home}/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
+        [[ -z ${KERNEL_PATC} ]] && export KERNEL_PATC="$(egrep KERNEL_PATCHVER=[0-9]+\.[0-9]+ ${Home}/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
+        [[ -n ${KERNEL_PATC} ]] && export LINUX_KERNEL="$(egrep -o LINUX_KERNEL_HASH-${KERNEL_PATC}\.[0-9]+ ${Home}/include/kernel-${KERNEL_PATC} |cut -d "-" -f2)"
         [[ -z ${LINUX_KERNEL} ]] && export LINUX_KERNEL="nono"
+	
 	      PATCHVER="unknown"
         fi
 	if [[ ! "${PATCHVER}" == "unknown" ]]; then

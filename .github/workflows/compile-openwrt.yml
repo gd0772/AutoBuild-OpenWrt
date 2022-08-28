@@ -51,7 +51,7 @@ jobs:
         echo "SERVERCHAN_SCKEY=${SERVERCHAN_SCKEY}" >> $GITHUB_ENV
         echo "REGULAR_UPDATE=${REGULAR_UPDATE}" >> $GITHUB_ENV
         echo "USE_CACHEWRTBUILD=${USE_CACHEWRTBUILD}" >> $GITHUB_ENV
-        echo "DL_URL=${DL_URL}" >> $GITHUB_ENV
+        echo "REPO_URL_DL=${REPO_URL_DL}" >> $GITHUB_ENV
         echo "BY_INFORMATION=${BY_INFORMATION}" >> $GITHUB_ENV
         echo "AUTOMATIC_AMLOGIC=${AUTOMATIC_AMLOGIC}" >> $GITHUB_ENV
         echo "CangKu=${Apidz##*/}" >> $GITHUB_ENV
@@ -167,10 +167,10 @@ jobs:
       id: package
       run: |
         cd openwrt
-        curl -LO "$REPO_URL"
-#       curl -LO https://drive.smayun.xyz/d/Onedrive/Build/x86_dl.tar.gz
+        curl -LO "$REPO_URL_DL"
         tar zxvf *_dl.tar.gz
         rm -rf *_dl.tar.gz
+#        curl -LO https://drive.smayun.xyz/d/Onedrive/Build/x86_dl.tar.gz
 #        make defconfig
 #        make download -j8
 #        find dl -size -1024c -exec ls -l {} \;

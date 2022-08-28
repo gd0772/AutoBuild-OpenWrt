@@ -11,7 +11,7 @@ GET_TARGET_INFO() {
 	"master")
 		LUCI_Name="18.06"
 		REPO_Name="lede"
-		ZUOZHE="Lean's"
+		ZUOZHE="coolsnowwolf"
 		if [[ "${TARGET_PROFILE}" == "x86-64" ]]; then
 			Legacy_Firmware="openwrt-x86-64-generic-squashfs-combined.${Firmware_sfxo}"
 			UEFI_Firmware="openwrt-x86-64-generic-squashfs-combined-efi.${Firmware_sfxo}"
@@ -35,7 +35,7 @@ GET_TARGET_INFO() {
 	"19.07") 
 		LUCI_Name="19.07"
 		REPO_Name="lienol"
-		ZUOZHE="Lienol's"
+		ZUOZHE="Lienol"
 		if [[ "${TARGET_PROFILE}" == "x86-64" ]]; then
 			Legacy_Firmware="openwrt-x86-64-combined-squashfs.${Firmware_sfxo}"
 			UEFI_Firmware="openwrt-x86-64-combined-squashfs-efi.${Firmware_sfxo}"
@@ -51,7 +51,7 @@ GET_TARGET_INFO() {
 	"openwrt-21.02")
 		LUCI_Name="21.02"
 		REPO_Name="mortal"
-		ZUOZHE="ctcgfw"
+		ZUOZHE="immortalwrt"
 		if [[ "${TARGET_PROFILE}" == "x86-64" ]]; then
 			Legacy_Firmware="immortalwrt-x86-64-generic-squashfs-combined.${Firmware_sfxo}"
 			UEFI_Firmware="immortalwrt-x86-64-generic-squashfs-combined-efi.${Firmware_sfxo}"

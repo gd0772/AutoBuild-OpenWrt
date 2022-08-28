@@ -162,7 +162,19 @@ jobs:
         sed -i 's|[[:space:]]||g; s|^.||' CPU && sed -i 's|CPU||g; s|pucores:||' CPU
         CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
         curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🔔 您正在使用【${CPUNAME} CPU】【${CPUCORES}核心】【${CODE}】源码 编译固件中,请耐心等待...... ⏳" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
-        
+
+    - name: 下载dl库
+      id: package
+      run: |
+        cd openwrt
+        curl -LO https://drive.smayun.xyz/d/Onedrive/Build/x86_dl.tar.gz
+        tar zxvf *_dl.tar.gz
+        rm -rf *_dl.tar.gz
+#        make defconfig
+#        make download -j8
+#        find dl -size -1024c -exec ls -l {} \;
+#        find dl -size -1024c -exec rm -f {} \;
+
     - name: 编译信息
       run: |
         cd openwrt
@@ -176,17 +188,6 @@ jobs:
           chmod -R 755 .
         fi
 
-    - name: 下载dl库
-      id: package
-      run: |
-        cd openwrt
-        wget https://drive.smayun.xyz/d/Onedrive/Build/x86_dl.tar.gz
-        tar zxvf *_dl.tar.gz
-        rm -rf *_dl.tar.gz
-#        make defconfig
-#        make download -j8
-#        find dl -size -1024c -exec ls -l {} \;
-#        find dl -size -1024c -exec rm -f {} \;
     - name: 编译固件
       id: compile
       run: |

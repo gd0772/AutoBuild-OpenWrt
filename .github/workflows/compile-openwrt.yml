@@ -192,20 +192,6 @@ jobs:
         echo "::set-output name=status::success"
         echo "date=$(date "+%Y%m%d%H%M%S")" >> $GITHUB_ENV
         echo "date1=$(date +'%m-%d')" >> $GITHUB_ENV
-        
-    - name: 上传配置
-      if: env.UPLOAD_CONFIG == 'true'
-      uses: actions/upload-artifact@v2
-      with:
-        name: .config_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
-        path: config.txt
-        
-    - name: 上传文件
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      uses: actions/upload-artifact@v2
-      with:
-        name: filename+ipk_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
-        path: openwrt/bin
     
     - name: 整理文件
       id: organizer
@@ -228,6 +214,20 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "BOT=TRUE" >> $GITHUB_ENV
         echo "::set-output name=status::success"
+        
+    - name: 上传配置
+      if: env.UPLOAD_CONFIG == 'true'
+      uses: actions/upload-artifact@v2
+      with:
+        name: .config_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
+        path: config.txt
+        
+    - name: 上传文件
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      uses: actions/upload-artifact@v2
+      with:
+        name: filename+ipk_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
+        path: openwrt/bin        
         
     - name: 上传固件
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'

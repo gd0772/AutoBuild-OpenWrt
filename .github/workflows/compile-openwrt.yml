@@ -167,7 +167,8 @@ jobs:
       id: package
       run: |
         cd openwrt
-        curl -LO https://drive.smayun.xyz/d/Onedrive/Build/x86_dl.tar.gz
+        curl -LO "$REPO_URL"
+#       curl -LO https://drive.smayun.xyz/d/Onedrive/Build/x86_dl.tar.gz
         tar zxvf *_dl.tar.gz
         rm -rf *_dl.tar.gz
 #        make defconfig

@@ -382,7 +382,6 @@ TIME z "  随机分配到 E5系列CPU 编译是 最慢的, 8171M 快很多，827
 echo
 TIME z "  下面将使用 [ $(nproc) 线程 ] 编译固件"
 echo
-echo
 
 if [ -n "$(ls -A "${Home}/Chajianlibiao" 2>/dev/null)" ]; then
 	echo

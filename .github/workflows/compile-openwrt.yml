@@ -47,7 +47,6 @@ jobs:
         echo "UPLOAD_BIN_DIR=${UPLOAD_BIN_DIR}" >> $GITHUB_ENV
         echo "UPLOAD_CONFIG=${UPLOAD_CONFIG}" >> $GITHUB_ENV
         echo "UPLOAD_FIRMWARE=${UPLOAD_FIRMWARE}" >> $GITHUB_ENV
-        echo "UPLOAD_COWTRANSFER=${UPLOAD_COWTRANSFER}" >> $GITHUB_ENV
         echo "UPLOAD_RELEASE=${UPLOAD_RELEASE}" >> $GITHUB_ENV
         echo "SERVERCHAN_SCKEY=${SERVERCHAN_SCKEY}" >> $GITHUB_ENV
         echo "REGULAR_UPDATE=${REGULAR_UPDATE}" >> $GITHUB_ENV
@@ -214,7 +213,7 @@ jobs:
         if [ "${AUTOMATIC_AMLOGIC}" == "true" ]; then
           source "${PATH1}/common.sh" && Diy_amlogic
         fi
-        cd ../ && df -hT $PWD && cd openwrt
+        cd openwrt
         cp -Rf bin/targets/*/* "${Home}"/upgrade
         cd bin/targets/*/*
         find -name "*buildinfo*" | xargs -i rm -rf {}
@@ -236,17 +235,6 @@ jobs:
       with:
         name: ${{ env.OpenWrt_name }}-${{ env.CODE }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.Compile_Date }}
         path: ${{ env.FIRMWARE }}
-    
-    - name: 网盘转存
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        sed -i "s/Download Link/奶牛快传/g" cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        sed -i "s/Download Link/WETRANSFER/g" wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
     
     - name: 发布信息
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'

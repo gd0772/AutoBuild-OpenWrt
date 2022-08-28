@@ -180,7 +180,7 @@ jobs:
       working-directory: /${{matrix.target}}
       run: |
         cd openwrt
-        curl -LO "dl_URL"
+        wget "dl_URL"
         tar zxvf *_dl.tar.gz
         rm -rf *_dl.tar.gz
 #        make defconfig

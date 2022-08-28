@@ -383,13 +383,7 @@ echo
 TIME z "  下面将使用 [ $(nproc) 线程 ] 编译固件"
 echo
 echo
-if [ -n "$(ls -A "${Home}/EXT4" 2>/dev/null)" ]; then
-	echo
-	echo
-	chmod -R +x ${Home}/EXT4
-	source ${Home}/EXT4
-	rm -rf EXT4
-fi
+
 if [ -n "$(ls -A "${Home}/Chajianlibiao" 2>/dev/null)" ]; then
 	echo
 	echo

@@ -446,7 +446,7 @@ else
 	echo
 fi
 echo
-TIME z " 文件系统       类型   容量  已用  可用 使用% 挂载点"
+TIME z " 文件系统       类型   容量  已用  可用  使用% 挂载点"
 cd ../ && df -hT $PWD && cd openwrt
 echo
 TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"

@@ -177,10 +177,10 @@ jobs:
         fi
 
     - name: 下载dl库
-      id: package
+      working-directory: /${{matrix.target}}
       run: |
         cd openwrt
-        wget "dl_URL"
+        curl -LO "dl_URL"
         tar zxvf *_dl.tar.gz
         rm -rf *_dl.tar.gz
 #        make defconfig

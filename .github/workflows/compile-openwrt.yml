@@ -213,7 +213,7 @@ jobs:
         if [ "${AUTOMATIC_AMLOGIC}" == "true" ]; then
           source "${PATH1}/common.sh" && Diy_amlogic
         fi
-        cd openwrt
+        cd ../ && df -hT $PWD && cd ${Home}
         cp -Rf bin/targets/*/* "${Home}"/upgrade
         cd bin/targets/*/*
         find -name "*buildinfo*" | xargs -i rm -rf {}

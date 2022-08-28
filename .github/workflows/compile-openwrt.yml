@@ -177,10 +177,10 @@ jobs:
         fi
 
     - name: 下载dl库
-      working-directory: /${{matrix.target}}
+      id: package
       run: |
         cd openwrt
-        wget "dl_URL"
+        wget https://drive.smayun.xyz/d/Onedrive/Build/x86_dl.tar.gz
         tar zxvf *_dl.tar.gz
         rm -rf *_dl.tar.gz
 #        make defconfig

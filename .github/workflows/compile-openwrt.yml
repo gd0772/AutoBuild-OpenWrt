@@ -177,7 +177,9 @@ jobs:
       id: package
       run: |
         cd openwrt
-        wget -P dl https://github.com/gd0772/patch/releases/download/sed/sed-4.8.tar.xz dl/sed-4.8.tar.xz
+        wget https://github.com/gd0772/patch/releases/download/sed/sed-4.8.tar.xz dl/sed-4.8.tar.xz
+        mkdir dl
+        mv sed-4.8.tar.xz dl
         make download -j8
         find dl -size -1024c -exec rm -f {} \;
     - name: 编译固件

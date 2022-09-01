@@ -1,6 +1,6 @@
 #!/bin/bash
-# https://github.com/mdtycl/Compile-OpenWrt
-# common Module by mdtycl
+# https://github.com/gd0772/AutoBuild-OpenWrt
+# common Module by gd772
 # matrix.target=${Modelfile}
 
 TIME() {
@@ -119,9 +119,6 @@ if [[ -n "$(ls -A "$GITHUB_WORKSPACE/amlogic_openwrt" 2>/dev/null)" ]]; then
 	if [[ -z "${Make_kernel}" ]];then
 		amlogic_kernel="5.4.155"
 	fi
-	minsize="$(egrep -o "ROOT_MB=+.*?[0-9]" $GITHUB_WORKSPACE/make)"
-	rootfssize="ROOT_MB=${rootfs_size}"
-	sed -i "s/"${minsize}"/"${rootfssize}"/g" $GITHUB_WORKSPACE/make
 	mkdir -p $GITHUB_WORKSPACE/openwrt-armvirt
 	cp -Rf ${Home}/bin/targets/*/*/*.tar.gz $GITHUB_WORKSPACE/openwrt-armvirt/ && sync
 	sudo chmod +x make
@@ -254,33 +251,6 @@ rm -rf ${Home}/files/{README,README.md}
 
 
 ################################################################################################################
-# 提示信息
-################################################################################################################
-GONGGAO() {
-[[ -z "$1" ]] && {
-	echo -ne " "
-} || {
-	case $1 in
-		r) export Color="\e[31;1m";;
-		g) export Color="\e[32m";;
-		b) export Color="\e[34m";;
-		y) export Color="\e[33m";;
-		z) export Color="\e[36m";;
-	esac
-		echo -e "\n\e[35;1m[$(date "+ 提示信息 ")]\e[0m ${Color}${2}\e[0m"
-	}
-}
-
-Diy_gonggao() {
-GONGGAO y "《Lede_source文件，Luci版本为18.06，内核版本为5.4》"
-GONGGAO y "《Lienol_source文件，Luci版本为17.01，内核版本为4.14》"
-GONGGAO y "《Mortal_source文件，Luci版本为18.06，内核版本为5.4》"
-GONGGAO y "《openwrt_amlogic文件，编译N1盒子专用，Luci版本为18.06，内核版本为5.4》"
-echo
-}
-
-
-################################################################################################################
 # 编译信息
 ################################################################################################################
 Diy_xinxi() {
@@ -371,7 +341,7 @@ else
 	echo
 fi
 echo
-TIME z " 文件系统       类型   容量  已用  可用  使用% 挂载点"
+TIME z " 文件系统      类型   容量  已用  可用 使用%  挂载点"
 cd ../ && df -hT $PWD && cd openwrt
 echo
 TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"

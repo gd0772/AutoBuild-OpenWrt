@@ -1,9 +1,0 @@
-
-config turboacc 'config'
-	option hw_flow '0'
-	option bbr_cca '0'
-	option dns_caching '0'
-	option sfe_flow '0'
-	option sw_flow '0'
-	option fullcone_nat '1'
-

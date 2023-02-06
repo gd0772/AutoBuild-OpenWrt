@@ -74,11 +74,10 @@ config openclash 'config'
 	option auto_restart '0'
 	option auto_restart_week_time '1'
 	option auto_restart_day_time '0'
-	option enable '1'
 	option config_reload '1'
-	option redirect_dns '1'
-	option dnsmasq_cachesize '0'
-	option cachesize_dns '1'
+	option enable '0'
+	option cachesize_dns '0'
+	option redirect_dns '0'
 
 config dns_servers
 	option group 'nameserver'
@@ -202,6 +201,5 @@ config dns_servers
 
 config authentication
 	option enabled '1'
-	option username 'Clash'
-	option password 'JOFn0J03'
-
+	option username 'gd772'
+	option password 'Clash'

@@ -9,10 +9,10 @@ config globals 'globals'
 	option ula_prefix 'fd6d:cd6e:a677::/48'
 
 config interface 'lan'
-	option type 'bridge'
 	option ifname 'eth0'
 	option proto 'static'
 	option ipaddr '192.168.123.2'
 	option netmask '255.255.255.0'
 	option delegate '0'
-
+	option gateway '192.168.123.1'
+	option dns '8.8.4.4'

@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [openwrt_amlogic]
+        target: [Lede_source,openwrt_amlogic]
 
         # [Lede_source,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
 
@@ -86,7 +86,6 @@ jobs:
         sudo -E systemctl daemon-reload
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-        sudo -E node -v
         echo 
         echo "文件系统        类型   容量  已用  可用 使用% 挂载点"
         df -hT $PWD

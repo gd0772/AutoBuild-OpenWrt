@@ -246,7 +246,7 @@ jobs:
     
     - name: 发布固件
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
-      uses: ncipollo/release-action@main
+      uses: ncipollo/release-action@v3
       with:
         name: ${{ env.CODE }}-${{ env.TARGET_PROFILE }}
         tag: ${{ env.date }}
@@ -262,7 +262,7 @@ jobs:
         
     - name: 云端更新2
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: ncipollo/release-action@main
+      uses: ncipollo/release-action@v3
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: openwrt/bin/Firmware/*
@@ -279,7 +279,7 @@ jobs:
         
     - name: 云端更新4
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: ncipollo/release-action@main
+      uses: ncipollo/release-action@v3
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: Github_Tags/*

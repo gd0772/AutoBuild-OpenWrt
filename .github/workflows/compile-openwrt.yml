@@ -28,13 +28,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_source,openwrt_amlogic]
+        target: [Lede_source]
 
         # [Lede_source,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: 读取设置
       run: |
@@ -229,7 +229,7 @@ jobs:
         
     - name: 上传固件
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ env.OpenWrt_name }}-${{ env.CODE }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.Compile_Date }}
         path: ${{ env.FIRMWARE }}
@@ -246,7 +246,7 @@ jobs:
     
     - name: 发布固件
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
-      uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@v3
       with:
         name: ${{ env.CODE }}-${{ env.TARGET_PROFILE }}
         tag: ${{ env.date }}
@@ -262,7 +262,7 @@ jobs:
         
     - name: 云端更新2
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: svenstaro/upload-release-action@v2
+      uses: svenstaro/upload-release-action@v3
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: openwrt/bin/Firmware/*
@@ -279,7 +279,7 @@ jobs:
         
     - name: 云端更新4
       if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: svenstaro/upload-release-action@v2
+      uses: svenstaro/upload-release-action@v3
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: Github_Tags/*

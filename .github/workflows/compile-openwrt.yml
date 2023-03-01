@@ -193,14 +193,14 @@ jobs:
         
     - name: 上传配置
       if: env.UPLOAD_CONFIG == 'true'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@main
       with:
         name: .config_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
         path: config.txt
         
     - name: 上传文件
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: filename+ipk_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
         path: openwrt/bin            
@@ -229,7 +229,7 @@ jobs:
         
     - name: 上传固件
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@main
       with:
         name: ${{ env.OpenWrt_name }}-${{ env.CODE }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.Compile_Date }}
         path: ${{ env.FIRMWARE }}
@@ -245,8 +245,8 @@ jobs:
         echo "##### WETRANSFER：$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
     
     - name: 发布固件
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
-      uses: softprops/action-gh-release@v1
+      if: steps.compile.outcome == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
+      uses: ncipollo/release-action@main
       with:
         name: ${{ env.CODE }}-${{ env.TARGET_PROFILE }}
         tag: ${{ env.date }}
@@ -255,14 +255,14 @@ jobs:
         artifacts: "${{ env.FIRMWARE }}/*"
         
     - name: 云端更新1
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
+      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true'
       run: |
        cd openwrt
        source "${PATH1}/upgrade.sh" && Diy_Part3
         
     - name: 云端更新2
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: softprops/action-gh-release@v1
+      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      uses: ncipollo/release-action@main
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: openwrt/bin/Firmware/*
@@ -271,15 +271,15 @@ jobs:
         file_glob: true
         
     - name: 云端更新3
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
+      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true'
       run: |
         mkdir -p Github_Tags
         cd Github_Tags
         wget -q --no-cookie --no-check-certificate https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O Github_Tags
         
     - name: 云端更新4
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: softprops/action-gh-release@v1
+      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      uses: ncipollo/release-action@main
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: Github_Tags/*

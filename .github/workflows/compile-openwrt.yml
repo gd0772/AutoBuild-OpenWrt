@@ -8,10 +8,7 @@ on:
       - 'build/Tianling_source/start-up/start'
 
   schedule:
-   - cron: 0 20 * * *
-   
-permissions:
-  contents: read
+   - cron: 0 17 * * 5
 
 env:
   Github: https://github.com/${{github.repository}}
@@ -24,20 +21,20 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     name: 编译 "${{matrix.target}}"
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_source]
+        target: [Lede_source,openwrt_amlogic]
 
         # [Lede_source,Lienol_source,Mortal_source,Tianling_source,openwrt_amlogic]
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: 读取设置
       run: |
@@ -82,14 +79,13 @@ jobs:
       run: |
         docker rmi `docker images -q`
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-mark hold grub-efi-amd64-signed
         sudo -E apt update
         sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap*
         sudo -E apt -y full-upgrade
-        sudo -E apt -y install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+        sudo -E apt -y install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip libpython3-dev qemu-utils rsync rename scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
         sudo -E systemctl daemon-reload
-        sudo -E apt -y autoremove --purge
-        sudo -E apt clean
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
         echo 
         echo "文件系统        类型   容量  已用  可用 使用% 挂载点"
         df -hT $PWD
@@ -197,14 +193,14 @@ jobs:
         
     - name: 上传配置
       if: env.UPLOAD_CONFIG == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: .config_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
         path: config.txt
         
     - name: 上传文件
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: filename+ipk_${{ env.CODE }}_${{ env.TARGET_PROFILE }}_${{ env.Compile_Date }}
         path: openwrt/bin            
@@ -233,7 +229,7 @@ jobs:
         
     - name: 上传固件
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: ${{ env.OpenWrt_name }}-${{ env.CODE }}-${{ env.TARGET_PROFILE }}-firmware-${{ env.Compile_Date }}
         path: ${{ env.FIRMWARE }}
@@ -249,8 +245,8 @@ jobs:
         echo "##### WETRANSFER：$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
     
     - name: 发布固件
-      if: steps.compile.outcome == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
-      uses: ncipollo/release-action@main
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && env.REPO_TOKEN
+      uses: ncipollo/release-action@v1
       with:
         name: ${{ env.CODE }}-${{ env.TARGET_PROFILE }}
         tag: ${{ env.date }}
@@ -259,14 +255,14 @@ jobs:
         artifacts: "${{ env.FIRMWARE }}/*"
         
     - name: 云端更新1
-      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true'
+      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
       run: |
        cd openwrt
        source "${PATH1}/upgrade.sh" && Diy_Part3
         
     - name: 云端更新2
-      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: ncipollo/release-action@main
+      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: openwrt/bin/Firmware/*
@@ -275,15 +271,15 @@ jobs:
         file_glob: true
         
     - name: 云端更新3
-      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true'
+      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
       run: |
         mkdir -p Github_Tags
         cd Github_Tags
         wget -q --no-cookie --no-check-certificate https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O Github_Tags
         
     - name: 云端更新4
-      if: steps.compile.outcome == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
-      uses: ncipollo/release-action@main
+      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true' && env.REPO_TOKEN
+      uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.REPO_TOKEN }}
         file: Github_Tags/*

@@ -89,7 +89,6 @@ jobs:
         echo "================================================="
         echo "文件系统        类型   容量  已用  可用 使用% 挂载点"
         df -hT $PWD
-        echo "================================================="
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /${{matrix.target}}
         sudo chown $USER:$GROUPS /${{matrix.target}}
@@ -133,7 +132,7 @@ jobs:
     
     - name: 加载缓存
       if: env.USE_CACHEWRTBUILD == 'true'
-      uses: klever1988/cachewrtbuild@test
+      uses: klever1988/cachewrtbuild@main
       with:
         ccache: 'true'
         prefix: ${{ github.workspace }}/openwrt

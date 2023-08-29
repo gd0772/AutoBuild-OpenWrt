@@ -73,7 +73,7 @@ jobs:
         fi
         echo "NETIP=package/base-files/files/etc/networkip" >> $GITHUB_ENV
         echo "DELETE=package/base-files/files/etc/deletefile" >> $GITHUB_ENV
-    - name: Free Disk Space (Ubuntu)
+    - name: 清理空间
       uses: jlumbroso/free-disk-space@main
       with:
         # this might remove tools that are actually needed,

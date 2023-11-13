@@ -42,11 +42,15 @@ echo
 TIME y "添加 文件管理器"
 svn co https://github.com/gd0772/package/trunk/luci-app-filebrowser package/gd772/luci-app-filebrowser
 echo
-TIME y "添加 SSR Plus+"
-git clone -b main https://github.com/fw876/helloworld package/gd772/ssrplus
-echo
 TIME y "添加 小猫咪"
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/gd772/luci-app-openclash
+echo
+TIME y "添加 passwall"
+git clone https://github.com/kenzok8/small package/gd772/passwall
+rm -rf package/gd772/passwall/luci-app-passwall2 package/gd772/passwall/luci-app-ssr-plus package/gd772/passwall/luci-app-bypass
+echo
+TIME y "添加 SSR Plus+"
+git clone -b main https://github.com/fw876/helloworld package/gd772/ssrplus
 echo
 # app 重命名
 # 状态
@@ -88,6 +92,19 @@ sed -i 's/services/vpn/g' package/gd772/luci-app-openclash/luasrc/*.lua
 sed -i 's/services/vpn/g' package/gd772/luci-app-openclash/luasrc/controller/*.lua
 sed -i 's/services/vpn/g' package/gd772/luci-app-openclash/luasrc/model/cbi/openclash/*.lua
 sed -i 's/services/vpn/g' package/gd772/luci-app-openclash/luasrc/view/openclash/*.htm
+# 调整 passwall 到 GFW 菜单"
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/controller/passwall.lua
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/model/cbi/passwall/client/*.lua
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/model/cbi/passwall/server/*.lua
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/passwall/*.lua
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/app_update/*.htm
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/global/*.htm
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/haproxy/*.htm
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/log/*.htm
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/node_list/*.htm
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/rule/*.htm
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/server/*.htm
+sed -i 's/services/vpn/g' package/gd772/passwall/luci-app-passwall/luasrc/view/passwall/socks_auto_switch/*.htm
 # 调整 SSRP 到 GFW 菜单
 sed -i '12a entry({"admin", "vpn"}, firstchild(), "GFW", 45).dependent = false' package/gd772/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 sed -i 's/services/vpn/g' package/gd772/ssrplus/luci-app-ssr-plus/luasrc/controller/*.lua

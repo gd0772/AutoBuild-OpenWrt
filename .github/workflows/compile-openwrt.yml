@@ -86,6 +86,7 @@ jobs:
         android: true
         dotnet: true
         haskell: true
+        codeql: true
         large-packages: true
         docker-images: true
         swap-storage: true        

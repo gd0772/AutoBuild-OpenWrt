@@ -348,7 +348,7 @@ TIME z "  本编译 服务器的 CPU型号为 [ ${CPUNAME} ]"
 echo
 TIME z "  使用 核心数 为 [ ${CPUCORES} ], 线程数为 [ $(nproc) ]"
 echo
-TIME z "  随机分配到 E5系列CPU 编译是 最慢的, 8171M 快很多，8272CL 的又比 8171M 好些 8370C 最快的！"
+TIME z "  随机分配到的 CPU性能, AMDEPYC776364(最快) > 8370C(快) > 8272CL(超时边缘) > 8171M(超时) > E5系列(建议放弃)"
 echo
 TIME z "  下面将使用 [ $(nproc) 线程 ] 编译固件"
 echo

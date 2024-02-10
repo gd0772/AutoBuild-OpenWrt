@@ -104,10 +104,7 @@ jobs:
         remove-android: 'true'
         remove-haskell: 'true'
         remove-codeql: 'true'
-        remove-docker-images: 'true'
-
-    - name: Checkout
-      uses: actions/checkout@main        
+        remove-docker-images: 'true'     
 
     - name: 部署环境
       env:
@@ -119,9 +116,7 @@ jobs:
         sudo apt-get install -y $(curl -fsSL https://is.gd/depend_ubuntu2204_openwrt)
         sudo apt-get autoremove -y --purge
         sudo apt-get clean
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/local/lib/android /opt/ghc /usr/share/dotnet /usr/local/graalvm /usr/local/.ghcup \
-        /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
-        sudo timedatectl set-timezone "$TZ"
+        sudo -E timedatectl set-timezone "Asia/Shanghai"
         echo "================================================="
         echo "文件系统        类型   容量  已用  可用 使用% 挂载点"
         df -hT $PWD

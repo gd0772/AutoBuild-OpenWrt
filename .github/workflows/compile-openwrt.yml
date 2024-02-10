@@ -94,11 +94,6 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /${{matrix.target}}
         sudo chown $USER:$GROUPS /${{matrix.target}}
-        echo "================================================="
-        echo "文件系统        类型   容量  已用  可用 使用% 挂载点"
-        df -hT $PWD
-        sudo mkdir -p /${{matrix.target}}
-        sudo chown $USER:$GROUPS /${{matrix.target}}
     
     - name: 下载源码
       working-directory: /${{matrix.target}}

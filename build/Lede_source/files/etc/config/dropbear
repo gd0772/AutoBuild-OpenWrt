@@ -1,0 +1,5 @@
+
+config dropbear
+	option PasswordAuth 'on'
+	option Interface 'lan'
+	option Port '12306'

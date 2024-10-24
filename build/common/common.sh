@@ -82,7 +82,7 @@ elif [[ "${REPO_BRANCH}" == "19.07" ]]; then
 	cp -Rf "${Home}"/build/common/LIENOL/files "${Home}"
 	cp -Rf "${Home}"/build/common/LIENOL/diy/* "${Home}"
 	cp -Rf "${Home}"/build/common/LIENOL/patches/* "${PATH1}/patches"
-elif [[ "${REPO_BRANCH}" == "openwrt-18.06" ]]; then
+elif [[ "${REPO_BRANCH}" == "openwrt-23.05" ]]; then
 	cp -Rf "${Home}"/build/common/MORTAL/files "${Home}"
 	cp -Rf "${Home}"/build/common/MORTAL/diy/* "${Home}"
 	cp -Rf "${Home}"/build/common/MORTAL/patches/* "${PATH1}/patches"
@@ -214,7 +214,7 @@ if [[ "${BY_INFORMATION}" == "true" ]]; then
         CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
         rm -rf CPU
 
-        if [[ "${REPO_BRANCH}" == "openwrt-18.06" ]] || [[ "${REPO_BRANCH}" == "openwrt-21.02" ]]; then
+        if [[ "${REPO_BRANCH}" == "openwrt-23.05" ]] || [[ "${REPO_BRANCH}" == "openwrt-21.02" ]]; then
         export KERNEL_PATC=""
         export KERNEL_PATC="$(egrep KERNEL_PATCHVER:=[0-9]+\.[0-9]+ ${Home}/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"
         [[ -z ${KERNEL_PATC} ]] && export KERNEL_PATC="$(egrep KERNEL_PATCHVER=[0-9]+\.[0-9]+ ${Home}/target/linux/${TARGET_BOARD}/Makefile |cut -d "=" -f2)"

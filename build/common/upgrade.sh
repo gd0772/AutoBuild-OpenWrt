@@ -9,7 +9,7 @@ GET_TARGET_INFO() {
 	}
 	case "${REPO_BRANCH}" in
 	"master")
-		LUCI_Name="18.06"
+		LUCI_Name="23.05"
 		REPO_Name="lede"
 		ZUOZHE="coolsnowwolf"
 		if [[ "${TARGET_PROFILE}" == "x86-64" ]]; then

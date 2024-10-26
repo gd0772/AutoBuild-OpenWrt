@@ -5,10 +5,6 @@ config interface 'loopback'
 	option ipaddr '127.0.0.1'
 	option netmask '255.0.0.0'
 
-config globals 'globals'
-	option ula_prefix 'fd33:4671:11cc::/48'
-	option packet_steering '1'
-
 config interface 'lan'
 	option type 'bridge'
 	option ifname 'eth0'

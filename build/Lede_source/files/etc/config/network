@@ -1,29 +1,35 @@
 
 config interface 'loopback'
-	option ifname 'lo'
 	option proto 'static'
 	option ipaddr '127.0.0.1'
 	option netmask '255.0.0.0'
+	option device 'lo'
+
+config globals 'globals'
+	option packet_steering '1'
 
 config interface 'lan'
-	option type 'bridge'
-	option ifname 'eth0'
 	option proto 'static'
 	option ipaddr '192.168.123.254'
 	option netmask '255.255.255.0'
 	option ip6assign '64'
+	option device 'br-lan'
 
 config interface 'wan'
-	option ifname 'eth1'
 	option _orig_ifname 'eth1'
 	option _orig_bridge 'false'
 	option proto 'pppoe'
 	option ipv6 'auto'
 	option keepalive '0'
+	option device 'eth1'
 
 config interface 'wan6'
 	option proto 'dhcpv6'
-	option ifname 'eth1'
 	option reqaddress 'try'
 	option reqprefix 'auto'
+	option device 'eth1'
 
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'

@@ -5,7 +5,7 @@
 2. **命令行** 或 **SSH 链接** OP **执行以下命令** 完成固件更新
    Command line or SSH link OP execute the following command to complete the firmware update
 - 执行 **`bash /bin/AutoUpdate.sh`** 保留配置更新
-- Execute bash /bin/AutoUpdate.shKeep configuration updates
+- Execute bash /bin/AutoUpdate.sh Keep configuration updates
 - 执行 **`bash /bin/AutoUpdate.sh -n`** 不保留配置更新
 - Execute bash /bin/AutoUpdate.sh -n Do not keep configuration updates
 

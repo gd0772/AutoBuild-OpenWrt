@@ -188,8 +188,8 @@ jobs:
       uses: actions/cache@v4
       with:
         path: |
-          /workdir/openwrt
-          /workdir/.openwrt_cache
+          /${{matrix.target}}/openwrt
+          /${{matrix.target}}/.openwrt_cache
         key: ${{ runner.os }}-openwrt-${{ hashFiles('**/openwrt/Makefile') }}
         restore-keys: |
           ${{ runner.os }}-openwrt-

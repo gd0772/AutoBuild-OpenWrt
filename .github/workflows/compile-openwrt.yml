@@ -144,13 +144,6 @@ jobs:
         if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           source "${PATH1}/upgrade.sh" && Diy_Part1
         fi
-    
-    - name: 加载缓存
-      if: env.USE_CACHEWRTBUILD == 'true'
-      uses: klever1988/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        prefix: ${{ github.workspace }}/openwrt
 
     - name: 生成配置
       run: |
@@ -190,6 +183,17 @@ jobs:
         sed -i 's|[[:space:]]||g; s|^.||' CPU && sed -i 's|CPU||g; s|pucores:||' CPU
         CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
         curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🔔 您正在使用【${CPUNAME} CPU】【${CPUCORES}核心】【${CODE}】源码 编译固件中,请耐心等待...... ⏳" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+
+    - name: 加载缓存
+      uses: actions/cache@v4
+      with:
+        path: |
+          /workdir/openwrt
+          /workdir/.openwrt_cache
+        key: ${{ runner.os }}-openwrt-${{ hashFiles('**/openwrt/Makefile') }}
+        restore-keys: |
+          ${{ runner.os }}-openwrt-
+        
     - name: 下载dl库
       id: package
       run: |

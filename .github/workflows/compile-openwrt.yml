@@ -188,8 +188,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: |
-          /${{matrix.target}}/openwrt
-          /${{matrix.target}}/.openwrt_cache
+          ${{ github.workspace }}/openwrt
         key: ${{ runner.os }}-openwrt-${{ hashFiles('**/openwrt/Makefile') }}
         restore-keys: |
           ${{ runner.os }}-openwrt-
